@@ -1,0 +1,10 @@
+<resources>
+    <string name="GameTitle">Shoot It!</string>
+    <string name="buttonEnde">Spiel beenden</string>
+    <string name="buttonStarten">Spiel starten</string>
+    <string name="buttonHighscore">Highscore anzeigen</string>
+    <string name="app_name">Shoot It!</string>
+    <string name="buttonBackToMainScreen">Zurück</string>
+    <string name="buttonBackToMainScreen2">Zurück</string>
+    <string name="buttonGameplayTest">GameplayTest</string>
+</resources>
