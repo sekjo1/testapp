@@ -2,13 +2,17 @@ package com.example.akra.testapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.util.Random;
+
+import static com.example.akra.testapp.R.id.buttonTarget;
 
 /**
  * Created by akra on 22.09.2017.
@@ -23,21 +27,20 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
         Button buttonTarget = (Button) findViewById(R.id.buttonTarget);
         Button btms2 = (Button) findViewById(R.id.buttonBackToMainScreen2);
-        AbsoluteLayout.LayoutParams absParams =
-                (AbsoluteLayout.LayoutParams) btms2.getLayoutParams();
+        ImageButton iBR = (ImageButton) findViewById(R.id.imageButtonRocket);
+
+        iBR.setOnClickListener(this);
+        btms2.setOnClickListener(this);
+        buttonTarget.setOnClickListener(this);
 
 
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = displaymetrics.widthPixels;
-        int height = displaymetrics.heightPixels;
+        double randomValueX = Math.random();
+        double randomValueY = Math.random();
+        double ValueX = Math.round((randomValueX * 860) + 80);
+        double ValueY = Math.round((randomValueY * 1600) + 80);
+        iBR.setX((float)ValueX);
+        iBR.setY((float)ValueY);
 
-
-        Random r = new Random();
-
-        absParams.x =  r.nextInt(width ) ;
-        absParams.y =  r.nextInt(height );
-        buttonTarget.setLayoutParams(absParams);
     }
     @Override
     public void onClick(View v)
@@ -45,8 +48,24 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         switch(v.getId())
         {
             case R.id.buttonBackToMainScreen2:
-                startActivity(new Intent(ActivityGameplayTest.this, MainActivity.class));
+
                 finish();
+                break;
+
+            case R.id.imageButtonRocket:
+                ImageButton iBR = (ImageButton) findViewById(R.id.imageButtonRocket);
+                double randomValueX = Math.random();
+                double randomValueY = Math.random();
+                double ValueX = Math.round((randomValueX * 920) + 80);
+                double ValueY = Math.round(randomValueY * 1600 + 80);
+                iBR.setX((float)ValueX);
+                iBR.setY((float)ValueY);
+                break;
+
+            case buttonTarget:
+
+                break;
+
         }
     }
 }
