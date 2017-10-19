@@ -36,10 +36,8 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
         double randomValueX = Math.random();
         double randomValueY = Math.random();
-        double ValueX = Math.round((randomValueX * 860) + 80);
-        double ValueY = Math.round((randomValueY * 1600) + 80);
-        iBR.setX((float)ValueX);
-        iBR.setY((float)ValueY);
+        iBR.setX(500);
+        iBR.setY(900);
 
     }
     @Override
@@ -53,14 +51,12 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 break;
 
             case R.id.imageButtonRocket:
+                ButtonPlacement idk = new ButtonPlacement();
                 ImageButton iBR = (ImageButton) findViewById(R.id.imageButtonRocket);
-                double randomValueX = Math.random();
-                double randomValueY = Math.random();
-                double ValueX = Math.round((randomValueX * 920) + 80);
-                double ValueY = Math.round(randomValueY * 1600 + 80);
-                iBR.setX((float)ValueX);
-                iBR.setY((float)ValueY);
-                break;
+
+                ButtonPlacement werteRandomen = new ButtonPlacement();
+                iBR.setX(werteRandomen.getRandomZahlX());
+                iBR.setY(werteRandomen.getRandomZahlY());
 
             case buttonTarget:
 
