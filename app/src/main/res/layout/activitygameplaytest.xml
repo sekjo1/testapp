@@ -31,11 +31,13 @@
 
     <ImageButton
         android:id="@+id/imageButtonRocket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/alert_dark_frame"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="154dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@mipmap/zielscheibe_v1"
         tools:layout_editor_absoluteX="156dp"
         tools:layout_editor_absoluteY="128dp" />
+
 
 </android.support.constraint.ConstraintLayout>

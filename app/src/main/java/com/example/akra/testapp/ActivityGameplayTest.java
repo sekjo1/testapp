@@ -29,6 +29,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         Button btms2 = (Button) findViewById(R.id.buttonBackToMainScreen2);
         ImageButton iBR = (ImageButton) findViewById(R.id.imageButtonRocket);
 
+        iBR.setBackground(null);
         iBR.setOnClickListener(this);
         btms2.setOnClickListener(this);
         buttonTarget.setOnClickListener(this);
@@ -57,6 +58,8 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 ButtonPlacement werteRandomen = new ButtonPlacement();
                 iBR.setX(werteRandomen.getRandomZahlX());
                 iBR.setY(werteRandomen.getRandomZahlY());
+                iBR.setScaleX((float)1.5);
+                iBR.setScaleY((float)1.5);
 
             case buttonTarget:
 
@@ -64,4 +67,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
         }
     }
+
+   /* @Override
+    public void String */
 }
