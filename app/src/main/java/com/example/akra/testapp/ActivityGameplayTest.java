@@ -64,7 +64,6 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         }
         else {*/
 
-
             switch (v.getId()) {
                 case R.id.buttonBackToMainScreen2:
                     finish();

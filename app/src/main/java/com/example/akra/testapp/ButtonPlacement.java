@@ -1,8 +1,5 @@
 package com.example.akra.testapp;
 
-/**
- * Created by akra on 19.10.2017.
- */
 
 public class ButtonPlacement
 {
