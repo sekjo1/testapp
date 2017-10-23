@@ -22,16 +22,16 @@
         android:id="@+id/buttonBackground"
         android:layout_width="377dp"
         android:layout_height="436dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textActualAmmu"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonBackToMainScreen2"
         app:srcCompat="@mipmap/invisible_button"
-        tools:layout_editor_absoluteY="-129dp" />
+        app:layout_constraintHorizontal_bias="0.333"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarReload" />
 
     <ImageButton
         android:id="@+id/imageButtonRocket"
@@ -46,28 +46,75 @@
 
     <ImageButton
         android:id="@+id/reloadButton"
-        android:layout_width="64dp"
-        android:layout_height="55dp"
+        android:layout_width="56dp"
+        android:layout_height="43dp"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@mipmap/bullet_customized" />
+        app:srcCompat="@mipmap/bullet_customized"
+        tools:layout_editor_absoluteY="533dp" />
 
     <TextView
         android:id="@+id/textActualAmmu"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="30dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="23dp"
         android:layout_marginRight="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/reloadButton"
-        tools:layout_editor_absoluteX="196dp"
-        tools:layout_editor_absoluteY="523dp" />
+        app:layout_constraintRight_toLeftOf="@+id/reloadButton" />
 
+    <ProgressBar
+        android:id="@+id/progressBarReload"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="56dp"
+        android:layout_height="11dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:max="100"
+        android:progress="0"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/reloadButton" />
 
+    <ImageButton
+        android:id="@+id/buttonBlockShots"
+        android:layout_width="377dp"
+        android:layout_height="436dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/buttonBackground"
+        app:layout_constraintRight_toRightOf="@+id/buttonBackground"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBackToMainScreen2"
+        app:srcCompat="@mipmap/invisible_button"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarReload" />
+
+    <TextView
+        android:id="@+id/lifePointsTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Lebenspunkte: 5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="28dp" />
+
+    <TextView
+        android:id="@+id/scoreTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="16dp"
+        android:text="Punktzahl: 0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
