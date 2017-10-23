@@ -33,7 +33,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitygameplaytest);
 
-        Button btms2 = (Button) findViewById(R.id.buttonBackToMainScreen2);
+        Button btms2 = (Button) findViewById(R.id.buttonBackToMainScreen2);                         //buttons initialisieren
         ImageButton iBR = (ImageButton) findViewById(R.id.imageButtonRocket);
         ImageButton reloadButton = (ImageButton) findViewById(R.id.reloadButton);
         ImageButton backgroundButton = (ImageButton)findViewById(R.id.buttonBackground);
