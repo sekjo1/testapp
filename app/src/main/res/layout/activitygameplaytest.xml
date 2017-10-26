@@ -6,6 +6,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <ImageView
+        android:id="@+id/imageViewBackgroundPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/background_image_3"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="-158dp"
+        android:layout_marginLeft="-485dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewLevelBackground"
+        android:layout_width="89dp"
+        android:layout_height="38dp"
+        app:srcCompat="@mipmap/background_level"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.501" />
+
+    <ImageView
+        android:id="@+id/imageViewHeart"
+        android:layout_width="58dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@mipmap/herz" />
+
     <Button
         android:id="@+id/buttonBackToMainScreen2"
         android:layout_width="88dp"
@@ -45,6 +81,17 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <ImageButton
+        android:id="@+id/imageButtonRocket2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="154dp"
+        android:elevation="0dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@mipmap/zielscheibe_v01"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageButton
         android:id="@+id/reloadButton"
         android:layout_width="56dp"
         android:layout_height="43dp"
@@ -63,6 +110,7 @@
         android:layout_marginBottom="23dp"
         android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/reloadButton" />
 
@@ -95,26 +143,64 @@
 
     <TextView
         android:id="@+id/lifePointsTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="Lebenspunkte: 5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        android:text="5"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="28dp" />
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/scoreTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="39dp"
         android:text="Punktzahl: 0"
+        android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.469" />
+
+    <ImageButton
+        android:id="@+id/imageButtonStartRound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleX="3"
+        android:scaleY="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/buttonBlockShots"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <TextView
+        android:id="@+id/textViewStufe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="9dp"
+        android:text="Stufe: 1"
+        android:textColor="@android:color/white"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewLevelBackground" />
+
 
 
 </android.support.constraint.ConstraintLayout>
