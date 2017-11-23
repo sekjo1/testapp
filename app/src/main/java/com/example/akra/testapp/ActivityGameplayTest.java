@@ -22,7 +22,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 {
 
     int amuValue = 10;
-    int lifePoints = 5;
+    int lifePoints = 9;
     String uebergabeString;
     String uebergabeLifepoints;
     String uebergabeScore;
@@ -109,6 +109,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 if(scalingSpeed > 500) {
                     scalingSpeed = scalingSpeed - 250;
                     scalingSteps = scalingSpeed / 200;
+                }
 //################## Target 1 ######################################################################
                     if(scalingTarget1Started == true){
                         target1ScalingInitiative.cancel();
@@ -182,8 +183,6 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                                 final Handler handler = new Handler();                              //nach 1 - 1500 ms wird selber Countdowntimer erneut gestartet
                                 handler.postDelayed(new Runnable() {
                                     public void run() {
-                                        //ImageButton iBR = (ImageButton) findViewById(R.id.imageButtonRocket);
-
                                         ButtonPlacement werteRandomen = new ButtonPlacement();
                                         iBR1.setX(werteRandomen.getRandomZahlX());
                                         iBR1.setY(werteRandomen.getRandomZahlY());
@@ -254,8 +253,11 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                             };
                             target2ScalingInitiative.start();
                         } else {
-                            target2ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
+                            ButtonPlacement werteRandomen = new ButtonPlacement();
+                            iBR2.setX(werteRandomen.getRandomZahlX());
+                            iBR2.setY(werteRandomen.getRandomZahlY());
 
+                            target2ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {                          // alle x milisekunden Scheibe vergrößern.
                                     iScalerTarget2 = iScalerTarget2 + scalingAmount;
@@ -301,7 +303,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         }
                     }
 //################## letzter Button zu Ende ########################################################
-                }
+
             }
 
             @Override
