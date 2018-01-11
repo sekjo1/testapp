@@ -21,11 +21,12 @@
         android:id="@+id/buttonStarten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/buttonStarten"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonHighscore" />
+        android:text="@string/buttonStarten"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUpgradeInterface"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/buttonHighscore"
@@ -51,12 +52,25 @@
         android:id="@+id/buttonGameplayTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/buttonStarten"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginRight="8dp"
+        android:text="Testumgebung"
+        app:layout_constraintBottom_toTopOf="@+id/buttonHighscore"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/buttonUpgradeInterface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Verbesserungen"
+        app:layout_constraintBottom_toTopOf="@+id/buttonGameplayTest"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

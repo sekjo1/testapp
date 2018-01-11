@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView label;
     Intent startGame;
     Intent startTest;
+    Intent startUpgrade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,15 +28,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button highscoreButton = (Button)findViewById(R.id.buttonHighscore);
         Button endButton = (Button)findViewById(R.id.buttonEnde);
         Button gameplayTestButton = (Button)findViewById(R.id.buttonGameplayTest);
+        Button upInBut = (Button) findViewById(R.id.buttonUpgradeInterface);
         label = (TextView)findViewById(R.id.GameTitle);
 
         startButton.setOnClickListener(this);
         highscoreButton.setOnClickListener(this);
         endButton.setOnClickListener(this);
         gameplayTestButton.setOnClickListener(this);
+        upInBut.setOnClickListener(this);
 
-        startTest = new Intent(MainActivity.this, ActivityGameplayTest.class);
-        startGame = new Intent(MainActivity.this, ActivityStartGame.class);
+        startTest = new Intent(MainActivity.this, ActivityStartGame.class);
+        startGame = new Intent(MainActivity.this, ActivityGameplayTest.class);
+        startUpgrade = new Intent (MainActivity.this, UpgradeInterfaceActivity.class);
     }
 
 
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-        Toast.makeText(this, "Sie haben einene Button geklickt", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Sie haben einene Button geklickt", Toast.LENGTH_LONG).show();
         switch (v.getId())
         {
             case R.id.buttonGameplayTest:
@@ -52,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonStarten:
                 startActivity(startGame);
+                break;
+
+            case R.id.buttonUpgradeInterface:
+                startActivity(startUpgrade);
                 break;
 
             case R.id.buttonHighscore:
