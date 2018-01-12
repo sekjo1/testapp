@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toTopOf="@+id/progressBarReload" />
 
     <ImageButton
-        android:id="@+id/imageButtonRocket1"
+        android:id="@+id/imageButtonTarget1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="154dp"
@@ -81,7 +81,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <ImageButton
-        android:id="@+id/imageButtonRocket2"
+        android:id="@+id/imageButtonTarget2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="154dp"
@@ -92,7 +92,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <ImageButton
-        android:id="@+id/imageButtonRocket3"
+        android:id="@+id/imageButtonTarget3"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="154dp"
@@ -103,7 +103,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <ImageButton
-        android:id="@+id/imageButtonRocket4"
+        android:id="@+id/imageButtonTarget4"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="154dp"
@@ -114,7 +114,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <ImageButton
-        android:id="@+id/imageButtonRocket5"
+        android:id="@+id/imageButtonTarget5"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="154dp"

@@ -22,45 +22,44 @@ import android.widget.Toast;
 public class ActivityGameplayTest extends AppCompatActivity implements View.OnClickListener
 {
 
-    int amuValue = 20;
-    int lifePoints = 999999;
-    String uebergabeString;
-    String uebergabeLifepoints;
-    String uebergabeScore;
-    String uebergabeStufe;
-    CountDownTimer target1ScalingInitiative;
+    int amuValue = 15;                                                                              //Munitionsmenge die am Start des Spiels ohne Nachladen zur Verfügung steht
+    int lifePoints = 5;                                                                             //Lebenspunkte die dem Spieler zur Verfügung stehen.
+    String uebergabeMunition;                                                                       //Wird verwendet um den Int Wert der Munition die aktuell zur Verfügung steht der Anzeige zu übergeben
+    String uebergabeLifepoints;                                                                     //Wird verwendet um den Int Wert der restelichen Lebenspunkte der Anzeige zu übergeben.
+    String uebergabeScore;                                                                          //Wird verwendet um den long-Wert der aktuellen Punktzahl der Anzeige zu übergeben.
+    String uebergabeStufe;                                                                          //Wird verwendet um den Int-Wert der aktuellen Stufe der Anzeige zu übergeben.
+    CountDownTimer target1ScalingInitiative;                                                        //Countdowntimer für die Steuerung für Zielscheiben
     CountDownTimer target2ScalingInitiative;
     CountDownTimer target3ScalingInitiative;
     CountDownTimer target4ScalingInitiative;
     CountDownTimer target5ScalingInitiative;
-    CountDownTimer difficulty;
-    CountDownTimer ausblenden1;
+    CountDownTimer difficulty;                                                                      //Steuert den Anstieg der Stufe und die Erhöhung der Punktzahl die pro getroffener Scheibe angerechnet wird.
+    CountDownTimer ausblenden1;                                                                     //Diese Countdowntimer werden verwendet um nachdem eine Scheibe gedrückt wurde oder die Lebenszeit abgelaufen ist die Wiederkehrdauer zufällig zu gestalten.
     CountDownTimer ausblenden2;
     CountDownTimer ausblenden3;
     CountDownTimer ausblenden4;
     CountDownTimer ausblenden5;
-    CountDownTimer ausblendenStart;
-    long score = 0;
-    double scoreGain = 1;
-    long scalingSpeed = 5250;                                                                       //für alle targets verwendbar
-    long scalingSteps = 25;
-    float scalingAmount = 0.008F;
-    boolean scalingTarget1Started = false;
+    long score = 0;                                                                                 //Punktzahl
+    double scoreGain = 1;                                                                           //Punktzahl die man für das treffen einer Scheibe erhält, erhöht sich durch difficulty CountDownTimer
+    long scalingSpeed = 5250;                                                                       //Definiert die Dauer, die man für das Drücken einer Scheibe hat.
+    long scalingSteps = 25;                                                                         //Definiert die Dauer die zwischen den CountDownTimer-ticks der Scalierungsmethoden liegt.
+    float scalingAmount = 0.008F;                                                                   //Definiert um wieviel sich die Zielscheibe pro Tick vergrößert.
+    boolean scalingTarget1Started = false;                                                          //Überbleibsel aus älterer Version. Sollte keinen Effekt mehr haben.
     boolean scalingTarget2Started = false;
     boolean scalingTarget3Started = false;
     boolean scalingTarget4Started = false;
     boolean scalingTarget5Started = false;
-    boolean target1FirstSpawn = true;
+    boolean target1FirstSpawn = true;                                                               //Wird benötigt um das erste Spawnen der Scheiben zu initialisieren. Ohne die If-funktion in der diese Vorkommt, hätte man springede Zielscheiben.
     boolean target2FirstSpawn = true;
     boolean target3FirstSpawn = true;
     boolean target4FirstSpawn = true;
     boolean target5FirstSpawn = true;
-    float iScalerTarget1 = 1F;
+    float iScalerTarget1 = 1F;                                                                      //Standart skalierungsgrad der Zielscheiben
     float iScalerTarget2 = 1F;
     float iScalerTarget3 = 1F;
     float iScalerTarget4 = 1F;
     float iScalerTarget5 = 1F;
-    int schwierigStufe = 0;
+    int schwierigStufe = 0;                                                                         //Schwierigkeitsstufe
 
 
 
@@ -68,28 +67,28 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitygameplaytest);
+                                                                                                    //Buttons initialisieren
+        Button btms2 = (Button) findViewById(R.id.buttonBackToMainScreen2);                         //Zurück button
+        ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);                     //Zielscheiben
+        ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+        ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+        ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+        ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
+        ImageButton reloadButton = (ImageButton) findViewById(R.id.reloadButton);                   //Nachladebutton
+        ImageButton backgroundButton = (ImageButton) findViewById(R.id.buttonBackground);           //Button der hinter den Zielscheiben liegt und der dafür sorgt das Munition abgezogen wird, wenn daneben gedrückt wird.
+        ImageButton blockShots = (ImageButton) findViewById(R.id.buttonBlockShots);                 //wird wärend des Nachladens über die Zielscheiben gelegt und verhindert so, dass während des Nachladevorgangs geschossen werden kann.
+       // ImageButton buttonStartRound = (ImageButton) findViewById(R.id.imageButtonStartRound);    //wird nicht mehr verwendet. (Da das Spawnen neuer Scheiben von handlern geregelt wird und damit so oder so das Spiel beginnt.
 
-        Button btms2 = (Button) findViewById(R.id.buttonBackToMainScreen2);                         //buttons initialisieren .
-        ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonRocket1);
-        ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonRocket2);
-        ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonRocket3);
-        ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonRocket4);
-        ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonRocket5);
-        ImageButton reloadButton = (ImageButton) findViewById(R.id.reloadButton);
-        ImageButton backgroundButton = (ImageButton) findViewById(R.id.buttonBackground);
-        ImageButton blockShots = (ImageButton) findViewById(R.id.buttonBlockShots);
-       // ImageButton buttonStartRound = (ImageButton) findViewById(R.id.imageButtonStartRound);
+        ImageView backgroundImage = (ImageView) findViewById(R.id.imageViewBackgroundPicture);      //Hintergrundbild
+        ImageView levelBackground = (ImageView) findViewById(R.id.imageViewLevelBackground);        //Bild das Rahmen für die aktuelle Schwierigkeitsstufe darstellt.
+        ImageView backgroundHeart = (ImageView) findViewById(R.id.imageViewHeart);                  //Bild das hinter dem Lebenspunktezähler liegt.
 
-        ImageView backgroundImage = (ImageView) findViewById(R.id.imageViewBackgroundPicture);
-        ImageView levelBackground = (ImageView) findViewById(R.id.imageViewLevelBackground);
-        ImageView backgroundHeart = (ImageView) findViewById(R.id.imageViewHeart);
+        final TextView currentLifepoints = (TextView) findViewById(R.id.lifePointsTV);              //Textanzeige für die Lebenspunkte
+        TextView actualAmmunition = (TextView) findViewById(R.id.textActualAmmu);                   //Textanzeige für Munition
+        final TextView currentScore = (TextView) findViewById(R.id.scoreTV);                        //Textanzeige für aktuelle Punktzahl
+        final TextView currentLevel = (TextView) findViewById(R.id.textViewStufe);                  //Textanzeige für aktuelle Schwierigkeitsstufe
 
-        final TextView currentLifepoints = (TextView) findViewById(R.id.lifePointsTV);
-        TextView actualAmmunition = (TextView) findViewById(R.id.textActualAmmu);
-        final TextView currentScore = (TextView) findViewById(R.id.scoreTV);
-        final TextView currentLevel = (TextView) findViewById(R.id.textViewStufe);
-
-        iBR1.setBackground(null);
+        iBR1.setBackground(null);                                                                   //entfernen des grauen Hintergrunds der Zielscheiben-Imagebuttons und aller anderen buttons
         iBR2.setBackground(null);
         iBR3.setBackground(null);
         iBR4.setBackground(null);
@@ -99,7 +98,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         blockShots.setBackground(null);
        // buttonStartRound.setBackground(null);
 
-        btms2.setOnClickListener(this);
+        btms2.setOnClickListener(this);                                                             //Clicklistener für alle Buttons
         iBR1.setOnClickListener(this);
         iBR2.setOnClickListener(this);
         iBR3.setOnClickListener(this);
@@ -110,13 +109,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         reloadButton.setOnClickListener(this);
        // buttonStartRound.setOnClickListener(this);
 
-        uebergabeString = String.valueOf(amuValue);
-        actualAmmunition.setText(uebergabeString);
+        uebergabeMunition = String.valueOf(amuValue);                                               //uebergeben der eingestellten Munitionsmenge an den String
+        actualAmmunition.setText(uebergabeMunition);
 
-        backgroundImage.setScaleX(1.15F);
+        backgroundImage.setScaleX(1.15F);                                                           //vergrößern des Hintergrundbilds um die komplette Fläche abzudecken.
         backgroundImage.setScaleY(1.15F);
 
-        iBR1.setX(5000);
+        iBR1.setX(5000);                                                                            //Erstmaliges positionieren der Zielscheiben (ausserhalb des Spielbaren bereichs)
         iBR1.setY(5000);
         iBR2.setX(5000);
         iBR2.setY(5000);
@@ -127,7 +126,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         iBR5.setX(5000);
         iBR5.setY(5000);
 
-        blockShots.setX(5000F);
+        blockShots.setX(5000F);                                                                     //Schussblockierer vom Spielfeld weg setzen. Wird später für die Nachladedauer ins Spielfeldgesetzt und danach wieder auf diese Position gesetzt.
         blockShots.setY(5000F);
 
         //###################################### Handler section ###################################
@@ -140,53 +139,53 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
 
 
-        difficulty = new CountDownTimer(86400000, 10000) {                    //Schwerigkeitslevel der sich über die Zeit erhöht
+        difficulty = new CountDownTimer(86400000, 10000) {                //Schwerigkeitslevel der sich über die Zeit erhöht (Dazu ist zu sagen, das der erste Tick des Countdowntimers nicht erst nach x milisekunden auftritt, sondern schon beim starten des Countdowntimers mit name.start()
 
             ButtonPlacement werteRandomen = new ButtonPlacement();
 
             @Override
             public void onTick(long millisUntilFinished) {
-                scoreGain = scoreGain * 1.25;
-                schwierigStufe++;
+                scoreGain = scoreGain * 1.25;                                                       //Erhöhung der Punktzahl die pro getroffener Scheibe erhalten wird.
+                schwierigStufe++;                                                                   //Erhöhund der Schwierigkeitsstufe
                 uebergabeStufe = String.valueOf(schwierigStufe);
                 currentLevel.setText("Stufe: " + uebergabeStufe);
 
-                if (scalingSpeed > 1500) {                                                           //erhöhung der Geschwindigkeit
+                if (scalingSpeed > 1500) {                                                          //erhöhung der Geschwindigkeit Aktuell nicht verwendbar, da zum bugfixen die Struktur der Programms geändert wurde und die CDT für die Zielscheiben nur einmal erzeugt werden. Somit wird der verringerte Wert, der normalerweise als neuer millisInFuture limit übergeben wird nie real verwendet.
                     scalingSpeed = scalingSpeed - 200;
                     scalingSteps = scalingSpeed / 200;
                 }
             }
 
             @Override
-            public void onFinish() {
+            public void onFinish() {                                                                //wird angezeigt wenn 24 Stunnden um oder alle Lebenspunkte verloren sind.
                 Toast.makeText(getApplicationContext(), "Punktzahl: " + currentScore, Toast.LENGTH_LONG).show();
             }
         };
 //################## Target 1 ######################################################################
-        handler1.postDelayed(new Runnable() {
+        handler1.postDelayed(new Runnable() {                                                       //Der handler bestimmt wann die Scheibe erstmalig in das Spielfeld verschoben und der Countdowntimer der Zielscheibe ebenfalls erstmalig gestartet wird.
             public void run() {
-                ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonRocket1);
+                ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
 
-                difficulty.start();
+                difficulty.start();                                                                 //starten des CountDownTimer difficulty.
 
-                if (scalingTarget1Started == true) {
+                if (scalingTarget1Started == true) {                                                //Altes Sicherheitselement das vor Abstürzen gesichert hat. Sollte aktuell keine Auswirkung haben.
                     target1ScalingInitiative.cancel();
                     target1ScalingInitiative.start();
                 }
 
-                ButtonPlacement werteRandomen = new ButtonPlacement();
+                ButtonPlacement werteRandomen = new ButtonPlacement();                              //Zielscheibe wird an zufällige Position im Spielbereich verschoben.
                 iBR1.setX(werteRandomen.getRandomZahlX());
                 iBR1.setY(werteRandomen.getRandomZahlY());
-                                                                                                    //wenn scheibe nicht im Bild ist
-                target1ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonRocket1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonRocket2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonRocket3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonRocket4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonRocket5);
+
+                target1ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {         //CountDownTimer für das Scaling wird initialisiert.
+                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
                     @Override
-                    public void onTick(long millisUntilFinished) {                              // alle x milisekunden Scheibe vergrößern.
+                    public void onTick(long millisUntilFinished) {                                  // alle x milisekunden Scheibe vergrößern.
                         iScalerTarget1 = iScalerTarget1 + scalingAmount;
                         iBR1.setScaleX(iScalerTarget1);
                         iBR1.setScaleY(iScalerTarget1);
@@ -194,16 +193,16 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     }
 
                     @Override
-                    public void onFinish() {                                                    //Wenn Scheibe maximal skaliert hat.
-                        lifePoints = lifePoints - 1;                                            //Lebenspunkt abziehen
+                    public void onFinish() {                                                        //Wenn Scheibe maximal skaliert hat.
+                        lifePoints = lifePoints - 1;                                                //Lebenspunkt abziehen
                         uebergabeLifepoints = String.valueOf(lifePoints);
                         currentLifepoints.setText(uebergabeLifepoints);
-                        iScalerTarget1 = 1;
+                        iScalerTarget1 = 1;                                                         //Übergabeparameter für die größe der Scheibe wieder auf Ausgangsposition zurück setzen.
 
-                        iBR1.setX(5000F);                                                       //Scheibe aus Spielfeld bewegen
+                        iBR1.setX(5000F);                                                           //Scheibe aus Spielfeld bewegen
                         iBR1.setY(5000F);
 
-                        ausblenden1 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
+                        ausblenden1 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {             //wird nach mindestens 500 und maximal 2000 milisekunden gestartet
                             @Override
                             public void onTick(long millisUntilFinished) {
 
@@ -211,15 +210,15 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
                             @Override
                             public void onFinish() {
-                                ButtonPlacement werteRandomen = new ButtonPlacement();
+                                ButtonPlacement werteRandomen = new ButtonPlacement();              //nach den maximal 2000 milisekunden wird die Zielscheibe erneut in das Spielfeld verschoben
                                 iBR1.setX(werteRandomen.getRandomZahlX());
                                 iBR1.setY(werteRandomen.getRandomZahlY());
-                                iBR1.setScaleX((float) 1);
+                                iBR1.setScaleX((float) 1);                                          //Größe der Scheibe auf 1 zurück setzen.
                                 iBR1.setScaleY((float) 1);
                                 if (lifePoints > 0) {
-                                    target1ScalingInitiative.start();
+                                    target1ScalingInitiative.start();                               //wenn noch Lebenspunkte vorhanden sind, wird der CountDownTimer zum skalieren der Scheibe neu gestartet.
                                 } else {
-                                    iBR1.setX(5000);
+                                    iBR1.setX(5000);                                                //wenn nicht, werden alle Zielscheiben aus dem Spielfeld entfernt und die difficulty beendet.
                                     iBR1.setY(5000);
                                     iBR2.setX(5000);
                                     iBR2.setY(5000);
@@ -234,19 +233,19 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                                 }
                             }
                         };
-                        ausblenden1.start();
+                        ausblenden1.start();                                                        //starten der CountDownTimers ausblenden
                     }
                 };
-                if (target1FirstSpawn == true) {
+                if (target1FirstSpawn == true) {                                                    //beim ersten Start der Zielscheibe wird sie darüber gestartet, später über den Aufruf onFinish() beim drücken der Zielscheibe oder beim auslaufen der Scheibe. Dadurch wird ausblenden gestartet, was die Scheibe neu startet.
                     target1ScalingInitiative.start();
                     target1FirstSpawn = false;
                 }
             }
-        }, (long) (4000));
+        }, (long) (4000));                                                                          //Wartezeit für den Handler
 //################## Target 2 ######################################################################
         handler2.postDelayed(new Runnable() {
             public void run() {
-                ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonRocket2);
+                ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
 
                 if (scalingTarget2Started == true) {
                     target2ScalingInitiative.cancel();
@@ -260,14 +259,14 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
 
                 target2ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonRocket1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonRocket2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonRocket3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonRocket4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonRocket5);
+                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
                     @Override
-                    public void onTick(long millisUntilFinished) {                          // alle x milisekunden Scheibe vergrößern.
+                    public void onTick(long millisUntilFinished) {
                         iScalerTarget2 = iScalerTarget2 + scalingAmount;
                         iBR2.setScaleX(iScalerTarget2);
                         iBR2.setScaleY(iScalerTarget2);
@@ -275,13 +274,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     }
 
                     @Override
-                    public void onFinish() {                                                //Wenn Scheibe maximal skaliert hat.
-                        lifePoints = lifePoints - 1;                                        //Lebenspunkt abziehen
+                    public void onFinish() {
+                        lifePoints = lifePoints - 1;
                         uebergabeLifepoints = String.valueOf(lifePoints);
                         currentLifepoints.setText(uebergabeLifepoints);
                         iScalerTarget2 = 1;
 
-                        iBR2.setX(5000F);                                                    //Scheibe aus Spielfeld bewegen
+                        iBR2.setX(5000F);
                         iBR2.setY(5000F);
 
                         ausblenden2 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
@@ -327,7 +326,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 //################## Target 3 ######################################################################
         handler3.postDelayed(new Runnable() {
             public void run() {
-                ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonRocket3);
+                ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
 
                 if (scalingTarget3Started == true) {
                     target3ScalingInitiative.cancel();
@@ -339,14 +338,14 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 iBR3.setY(werteRandomen.getRandomZahlY());
 
                 target3ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonRocket1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonRocket2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonRocket3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonRocket4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonRocket5);
+                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
                     @Override
-                    public void onTick(long millisUntilFinished) {                          // alle x milisekunden Scheibe vergrößern.
+                    public void onTick(long millisUntilFinished) {
                         iScalerTarget3 = iScalerTarget3 + scalingAmount;
                         iBR3.setScaleX(iScalerTarget3);
                         iBR3.setScaleY(iScalerTarget3);
@@ -354,13 +353,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     }
 
                     @Override
-                    public void onFinish() {                                                //Wenn Scheibe maximal skaliert hat.
-                        lifePoints = lifePoints - 1;                                        //Lebenspunkt abziehen
+                    public void onFinish() {
+                        lifePoints = lifePoints - 1;
                         uebergabeLifepoints = String.valueOf(lifePoints);
                         currentLifepoints.setText(uebergabeLifepoints);
                         iScalerTarget3 = 1;
 
-                        iBR3.setX(5000F);                                                    //Scheibe aus Spielfeld bewegen
+                        iBR3.setX(5000F);
                         iBR3.setY(5000F);
 
                         ausblenden3 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
@@ -406,7 +405,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 //################## Target 4 ######################################################################
         handler4.postDelayed(new Runnable() {
             public void run() {
-                ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonRocket4);
+                ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
 
                 if (scalingTarget4Started == true) {
                     target4ScalingInitiative.cancel();
@@ -418,14 +417,14 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 iBR4.setY(werteRandomen.getRandomZahlY());
 
                 target4ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonRocket1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonRocket2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonRocket3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonRocket4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonRocket5);
+                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
                     @Override
-                    public void onTick(long millisUntilFinished) {                          // alle x milisekunden Scheibe vergrößern.
+                    public void onTick(long millisUntilFinished) {
                         iScalerTarget4 = iScalerTarget4 + scalingAmount;
                         iBR4.setScaleX(iScalerTarget4);
                         iBR4.setScaleY(iScalerTarget4);
@@ -433,13 +432,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     }
 
                     @Override
-                    public void onFinish() {                                                //Wenn Scheibe maximal skaliert hat.
-                        lifePoints = lifePoints - 1;                                        //Lebenspunkt abziehen
+                    public void onFinish() {
+                        lifePoints = lifePoints - 1;
                         uebergabeLifepoints = String.valueOf(lifePoints);
                         currentLifepoints.setText(uebergabeLifepoints);
                         iScalerTarget4 = 1;
 
-                        iBR4.setX(5000F);                                                    //Scheibe aus Spielfeld bewegen
+                        iBR4.setX(5000F);
                         iBR4.setY(5000F);
 
                         ausblenden4 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
@@ -485,7 +484,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 //################## Target 5 ######################################################################
         handler5.postDelayed(new Runnable() {
             public void run() {
-                ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonRocket5);
+                ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
                 if (scalingTarget5Started == true) {
                     target5ScalingInitiative.cancel();
@@ -498,14 +497,14 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 iBR5.setY(werteRandomen.getRandomZahlY());
 
                 target5ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonRocket1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonRocket2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonRocket3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonRocket4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonRocket5);
+                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
                     @Override
-                    public void onTick(long millisUntilFinished) {                          // alle x milisekunden Scheibe vergrößern.
+                    public void onTick(long millisUntilFinished) {
                         iScalerTarget5 = iScalerTarget5 + scalingAmount;
                         iBR5.setScaleX(iScalerTarget5);
                         iBR5.setScaleY(iScalerTarget5);
@@ -513,13 +512,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     }
 
                     @Override
-                    public void onFinish() {                                                //Wenn Scheibe maximal skaliert hat.
-                        lifePoints = lifePoints - 1;                                        //Lebenspunkt abziehen
+                    public void onFinish() {
+                        lifePoints = lifePoints - 1;
                         uebergabeLifepoints = String.valueOf(lifePoints);
                         currentLifepoints.setText(uebergabeLifepoints);
                         iScalerTarget5 = 1;
 
-                        iBR5.setX(5000F);                                                    //Scheibe aus Spielfeld bewegen
+                        iBR5.setX(5000F);
                         iBR5.setY(5000F);
 
                         ausblenden5 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
@@ -587,36 +586,36 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     finish();
                     break;
 
-                case R.id.imageButtonRocket1:                                                        //Zielscheibe
-                    if(amuValue >0)
+                case R.id.imageButtonTarget1:                                                       //Zielscheiben Button
+                    if(amuValue >0)                                                                 //Wenn man genug Munition hat
                     {
-                        gunShot.start();
-                        amuValue = amuValue - 1;
-                        uebergabeString = String.valueOf(amuValue);
-                        actualAmmunition.setText(uebergabeString);
+                        gunShot.start();                                                            //Waffenton wird ausgegeben
+                        amuValue = amuValue - 1;                                                    //Munition wird abgezogen
+                        uebergabeMunition = String.valueOf(amuValue);
+                        actualAmmunition.setText(uebergabeMunition);
 
-                        lifePoints++;
+                        lifePoints++;                                                               //hinzufügen eines Lebenspunkts, da durch den folgenden onFinish() aufruf immer ein Leben abgezogen wird.
                         target1ScalingInitiative.cancel();
                         target1ScalingInitiative.onFinish();
                         scalingTarget1Started = false;
 
-                        score = Math.round((long) (score + scoreGain));
+                        score = Math.round((long) (score + scoreGain));                             //errechnen des neuen Punktestands
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Punktzahl: " + uebergabeScore);
                         break;
                     }
                     else{
-                        gunEmpty.start();
+                        gunEmpty.start();                                                           //bei zu wenig Munition wird ein Ton abgespielt.
                         break;
                     }
 
-                case R.id.imageButtonRocket2:
+                case R.id.imageButtonTarget2:
                     if(amuValue >0)
                     {
                         gunShot.start();
                         amuValue = amuValue - 1;
-                        uebergabeString = String.valueOf(amuValue);
-                        actualAmmunition.setText(uebergabeString);
+                        uebergabeMunition = String.valueOf(amuValue);
+                        actualAmmunition.setText(uebergabeMunition);
 
                         lifePoints++;
                         target2ScalingInitiative.cancel();
@@ -633,13 +632,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         break;
                     }
 
-                case R.id.imageButtonRocket3:
+                case R.id.imageButtonTarget3:
                     if(amuValue >0)
                     {
                         gunShot.start();
                         amuValue = amuValue - 1;
-                        uebergabeString = String.valueOf(amuValue);
-                        actualAmmunition.setText(uebergabeString);
+                        uebergabeMunition = String.valueOf(amuValue);
+                        actualAmmunition.setText(uebergabeMunition);
 
                         lifePoints++;
                         target3ScalingInitiative.cancel();
@@ -656,13 +655,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         break;
                     }
 
-                case R.id.imageButtonRocket4:
+                case R.id.imageButtonTarget4:
                     if(amuValue >0)
                     {
                         gunShot.start();
                         amuValue = amuValue - 1;
-                        uebergabeString = String.valueOf(amuValue);
-                        actualAmmunition.setText(uebergabeString);
+                        uebergabeMunition = String.valueOf(amuValue);
+                        actualAmmunition.setText(uebergabeMunition);
 
                         lifePoints++;
                         target4ScalingInitiative.cancel();
@@ -679,13 +678,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         break;
                     }
 
-                case R.id.imageButtonRocket5:
+                case R.id.imageButtonTarget5:
                     if(amuValue >0)
                     {
                         gunShot.start();
                         amuValue = amuValue - 1;
-                        uebergabeString = String.valueOf(amuValue);
-                        actualAmmunition.setText(uebergabeString);
+                        uebergabeMunition = String.valueOf(amuValue);
+                        actualAmmunition.setText(uebergabeMunition);
 
                         lifePoints++;
                         target5ScalingInitiative.cancel();
@@ -702,15 +701,15 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         break;
                     }
 
-                case R.id.reloadButton:                                                             //Nachladen
-                    ImageButton blockShots = (ImageButton)findViewById(R.id.buttonBlockShots);
+                case R.id.reloadButton:                                                             //Nachlade Button
+                    ImageButton blockShots = (ImageButton)findViewById(R.id.buttonBlockShots);      //Der Blockierbutton wird über die Zielscheiben gelegt damit nicht während des Nachladens geschossen werden kann.
                     blockShots.setX(0);
                     blockShots.setY(80);
 
-                    CountDownTimer reloadCountDown = new CountDownTimer(1500,5){
+                    CountDownTimer reloadCountDown = new CountDownTimer(1500,5){ //Der CountDownTimer für das Nachladen wird gestartet
                         int i = 0;
                         @Override
-                        public void onTick(long milliSekunden){                                     //Progress Bar beim Nachladen füllen
+                        public void onTick(long milliSekunden){                                     //Progress Bar wird beim Nachladen gefüllt. Kann etwas off wirken.
                             ProgressBar reloadBar = (ProgressBar)findViewById(R.id.progressBarReload);
                             i++;
                             reloadBar.setProgress((int)i*100/(1500/15));
@@ -718,41 +717,41 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         }
 
                         @Override
-                        public void onFinish() {                                                    //Nachladevorgang
+                        public void onFinish() {                                                    //Nachladevorgang zu Ende
                             TextView actualAmmunition = (TextView) findViewById(R.id.textActualAmmu);
                             ProgressBar reloadBar = (ProgressBar)findViewById(R.id.progressBarReload);
 
-                            amuValue = 20;
-                            uebergabeString = String.valueOf(amuValue);
-                            actualAmmunition.setText(uebergabeString);
-                            reloadBar.setProgress(0);
+                            amuValue = 20;                                                          //Munitionswert neu setzen.
+                            uebergabeMunition = String.valueOf(amuValue);
+                            actualAmmunition.setText(uebergabeMunition);
+                            reloadBar.setProgress(0);                                               //Nachlade-Progressbar wieder zurücksetzen
                             i = 0;
 
                             ImageButton blockShots = (ImageButton)findViewById(R.id.buttonBlockShots);
-                            blockShots.setX(5000);
+                            blockShots.setX(5000);                                                  //Blockier-button wird wieder aus dem Spielfeld geschoben
                             blockShots.setY(5000);
                         }
 
                     };
-                    reloadCountDown.start();
+                    reloadCountDown.start();                                                        //starten des CountDownTimers.
 
                     break;
 
-                case R.id.buttonBackground:                                                         //Daneben schießen
-                    if (amuValue > 0) {
-                        gunShot.start();
-                        amuValue = amuValue - 1;
-                        uebergabeString = String.valueOf(amuValue);
-                        actualAmmunition.setText(uebergabeString);
+                case R.id.buttonBackground:                                                         //Hintergrund Button der Schüsse die daneben gehen registriert.
+                    if (amuValue > 0) {                                                             //Wenn Munition vorhanden ist
+                        gunShot.start();                                                            //Schusston wird abgespielt.
+                        amuValue = amuValue - 1;                                                    //Munition wird abgezogen.
+                        uebergabeMunition = String.valueOf(amuValue);
+                        actualAmmunition.setText(uebergabeMunition);
                         break;
                     }
                     else{
-                        gunEmpty.start();
+                        gunEmpty.start();                                                           //Wenn keine Munition vorhanden ist wird ein Ton abgespielt.
                         break;
                     }
 
                 case R.id.buttonBlockShots:                                                         //Schüsse während nachladen blockieren
-                    gunClip.start();
+                    gunClip.start();                                                                //Ton wird abgespielt wenn während des Nachladens versucht wird zu schießen.
                     break;
 
             }
