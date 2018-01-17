@@ -589,7 +589,6 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 case R.id.imageButtonTarget1:                                                       //Zielscheiben Button
                     if(amuValue >0)                                                                 //Wenn man genug Munition hat
                     {
-                        gunShot.start();                                                            //Waffenton wird ausgegeben
                         amuValue = amuValue - 1;                                                    //Munition wird abgezogen
                         uebergabeMunition = String.valueOf(amuValue);
                         actualAmmunition.setText(uebergabeMunition);
@@ -602,6 +601,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));                             //errechnen des neuen Punktestands
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Punktzahl: " + uebergabeScore);
+                        gunShot.start();                                                            //Waffenton wird ausgegeben
                         break;
                     }
                     else{
@@ -612,7 +612,6 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 case R.id.imageButtonTarget2:
                     if(amuValue >0)
                     {
-                        gunShot.start();
                         amuValue = amuValue - 1;
                         uebergabeMunition = String.valueOf(amuValue);
                         actualAmmunition.setText(uebergabeMunition);
@@ -625,6 +624,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Punktzahl: " + uebergabeScore);
+                        gunShot.start();
                         break;
                     }
                     else{
@@ -635,7 +635,6 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 case R.id.imageButtonTarget3:
                     if(amuValue >0)
                     {
-                        gunShot.start();
                         amuValue = amuValue - 1;
                         uebergabeMunition = String.valueOf(amuValue);
                         actualAmmunition.setText(uebergabeMunition);
@@ -648,6 +647,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Punktzahl: " + uebergabeScore);
+                        gunShot.start();
                         break;
                     }
                     else{
@@ -658,7 +658,6 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 case R.id.imageButtonTarget4:
                     if(amuValue >0)
                     {
-                        gunShot.start();
                         amuValue = amuValue - 1;
                         uebergabeMunition = String.valueOf(amuValue);
                         actualAmmunition.setText(uebergabeMunition);
@@ -671,6 +670,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Punktzahl: " + uebergabeScore);
+                        gunShot.start();
                         break;
                     }
                     else{
@@ -681,7 +681,6 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 case R.id.imageButtonTarget5:
                     if(amuValue >0)
                     {
-                        gunShot.start();
                         amuValue = amuValue - 1;
                         uebergabeMunition = String.valueOf(amuValue);
                         actualAmmunition.setText(uebergabeMunition);
@@ -694,6 +693,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Punktzahl: " + uebergabeScore);
+                        gunShot.start();
                         break;
                     }
                     else{
@@ -739,10 +739,10 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
                 case R.id.buttonBackground:                                                         //Hintergrund Button der Schüsse die daneben gehen registriert.
                     if (amuValue > 0) {                                                             //Wenn Munition vorhanden ist
-                        gunShot.start();                                                            //Schusston wird abgespielt.
                         amuValue = amuValue - 1;                                                    //Munition wird abgezogen.
                         uebergabeMunition = String.valueOf(amuValue);
                         actualAmmunition.setText(uebergabeMunition);
+                        gunShot.start();                                                            //Schusston wird abgespielt.
                         break;
                     }
                     else{
