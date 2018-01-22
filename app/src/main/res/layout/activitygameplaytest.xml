@@ -11,7 +11,7 @@
         android:id="@+id/imageViewBackgroundPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/background_image"
+        app:srcCompat="@mipmap/background_sky"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="-158dp"
         android:layout_marginLeft="-485dp"
@@ -21,10 +21,10 @@
         android:id="@+id/imageViewLevelBackground"
         android:layout_width="89dp"
         android:layout_height="38dp"
-        app:srcCompat="@mipmap/background_level"
+        app:srcCompat="@mipmap/banner_1"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleX="1"
-        android:scaleY="1"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
         android:layout_marginTop="1dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -40,7 +40,7 @@
         android:layout_marginLeft="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@mipmap/herz" />
+        app:srcCompat="@mipmap/heart_red" />
 
     <Button
         android:id="@+id/buttonBackToMainScreen2"
@@ -133,7 +133,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@mipmap/bullet_customized"
+        app:srcCompat="@mipmap/reload_gun"
         tools:layout_editor_absoluteY="533dp" />
 
     <TextView
