@@ -66,6 +66,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
     boolean target3FirstSpawn = true;
     boolean target4FirstSpawn = true;
     boolean target5FirstSpawn = true;
+    boolean gameStillRunning = true;
     float iScalerTarget1 = 1F;                                                                      //Standart skalierungsgrad der Zielscheiben
     float iScalerTarget2 = 1F;
     float iScalerTarget3 = 1F;
@@ -191,6 +192,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     currentScore.setScaleY(2.8f);
                     scoreSenden.setX(-140);
                     scoreSenden.setY(800);
+                    gameStillRunning = false;
                 }
             }
         };
@@ -285,77 +287,79 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     target2ScalingInitiative.start();
                 }
 
+                if (gameStillRunning) {
+                    ButtonPlacement werteRandomen = new ButtonPlacement();
+                    iBR2.setX(werteRandomen.getRandomZahlX());
+                    iBR2.setY(werteRandomen.getRandomZahlY());
 
-                ButtonPlacement werteRandomen = new ButtonPlacement();
-                iBR2.setX(werteRandomen.getRandomZahlX());
-                iBR2.setY(werteRandomen.getRandomZahlY());
 
+                    target2ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
+                        ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                        ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                        ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                        ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                        ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
-                target2ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            iScalerTarget2 = iScalerTarget2 + scalingAmount;
+                            iBR2.setScaleX(iScalerTarget2);
+                            iBR2.setScaleY(iScalerTarget2);
+                            scalingTarget2Started = true;
+                        }
 
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        iScalerTarget2 = iScalerTarget2 + scalingAmount;
-                        iBR2.setScaleX(iScalerTarget2);
-                        iBR2.setScaleY(iScalerTarget2);
-                        scalingTarget2Started = true;
-                    }
+                        @Override
+                        public void onFinish() {
+                            lifePoints = lifePoints - 1;
+                            uebergabeLifepoints = String.valueOf(lifePoints);
+                            currentLifepoints.setText(uebergabeLifepoints);
+                            iScalerTarget2 = 1;
 
-                    @Override
-                    public void onFinish() {
-                        lifePoints = lifePoints - 1;
-                        uebergabeLifepoints = String.valueOf(lifePoints);
-                        currentLifepoints.setText(uebergabeLifepoints);
-                        iScalerTarget2 = 1;
+                            iBR2.setX(5000F);
+                            iBR2.setY(5000F);
 
-                        iBR2.setX(5000F);
-                        iBR2.setY(5000F);
+                            ausblenden2 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
 
-                        ausblenden2 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                ButtonPlacement werteRandomen = new ButtonPlacement();
-                                iBR2.setX(werteRandomen.getRandomZahlX());
-                                iBR2.setY(werteRandomen.getRandomZahlY());
-                                iBR2.setScaleX((float) 1);
-                                iBR2.setScaleY((float) 1);
-                                if (lifePoints > 0) {
-                                    target2ScalingInitiative.start();
-                                } else {
-                                    iBR1.setX(5000);
-                                    iBR1.setY(5000);
-                                    iBR2.setX(5000);
-                                    iBR2.setY(5000);
-                                    iBR3.setX(5000);
-                                    iBR3.setY(5000);
-                                    iBR4.setX(5000);
-                                    iBR4.setY(5000);
-                                    iBR5.setX(5000);
-                                    iBR5.setY(5000);
-                                    difficulty.cancel();
-                                    difficulty.onFinish();
                                 }
-                            }
-                        };
-                        ausblenden2.start();
+
+                                @Override
+                                public void onFinish() {
+                                    ButtonPlacement werteRandomen = new ButtonPlacement();
+                                    iBR2.setX(werteRandomen.getRandomZahlX());
+                                    iBR2.setY(werteRandomen.getRandomZahlY());
+                                    iBR2.setScaleX((float) 1);
+                                    iBR2.setScaleY((float) 1);
+                                    if (lifePoints > 0) {
+                                        target2ScalingInitiative.start();
+                                    } else {
+                                        iBR1.setX(5000);
+                                        iBR1.setY(5000);
+                                        iBR2.setX(5000);
+                                        iBR2.setY(5000);
+                                        iBR3.setX(5000);
+                                        iBR3.setY(5000);
+                                        iBR4.setX(5000);
+                                        iBR4.setY(5000);
+                                        iBR5.setX(5000);
+                                        iBR5.setY(5000);
+                                        difficulty.cancel();
+                                        difficulty.onFinish();
+                                    }
+                                }
+                            };
+                            ausblenden2.start();
+                        }
+                    };
+                    if (target2FirstSpawn == true) {
+                        target2ScalingInitiative.start();
+                        target2FirstSpawn = false;
                     }
-                };
-                if (target2FirstSpawn == true) {
-                    target2ScalingInitiative.start();
-                    target2FirstSpawn = false;
                 }
             }
         }, (long) (24500));
+
 //################## Target 3 ######################################################################
         handler3.postDelayed(new Runnable() {
             public void run() {
@@ -366,72 +370,74 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     target3ScalingInitiative.start();
                 }
 
-                ButtonPlacement werteRandomen = new ButtonPlacement();
-                iBR3.setX(werteRandomen.getRandomZahlX());
-                iBR3.setY(werteRandomen.getRandomZahlY());
+                if (gameStillRunning) {
+                    ButtonPlacement werteRandomen = new ButtonPlacement();
+                    iBR3.setX(werteRandomen.getRandomZahlX());
+                    iBR3.setY(werteRandomen.getRandomZahlY());
 
-                target3ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
+                    target3ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
+                        ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                        ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                        ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                        ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                        ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        iScalerTarget3 = iScalerTarget3 + scalingAmount;
-                        iBR3.setScaleX(iScalerTarget3);
-                        iBR3.setScaleY(iScalerTarget3);
-                        scalingTarget3Started = true;
-                    }
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            iScalerTarget3 = iScalerTarget3 + scalingAmount;
+                            iBR3.setScaleX(iScalerTarget3);
+                            iBR3.setScaleY(iScalerTarget3);
+                            scalingTarget3Started = true;
+                        }
 
-                    @Override
-                    public void onFinish() {
-                        lifePoints = lifePoints - 1;
-                        uebergabeLifepoints = String.valueOf(lifePoints);
-                        currentLifepoints.setText(uebergabeLifepoints);
-                        iScalerTarget3 = 1;
+                        @Override
+                        public void onFinish() {
+                            lifePoints = lifePoints - 1;
+                            uebergabeLifepoints = String.valueOf(lifePoints);
+                            currentLifepoints.setText(uebergabeLifepoints);
+                            iScalerTarget3 = 1;
 
-                        iBR3.setX(5000F);
-                        iBR3.setY(5000F);
+                            iBR3.setX(5000F);
+                            iBR3.setY(5000F);
 
-                        ausblenden3 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
+                            ausblenden3 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
 
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                ButtonPlacement werteRandomen = new ButtonPlacement();
-                                iBR3.setX(werteRandomen.getRandomZahlX());
-                                iBR3.setY(werteRandomen.getRandomZahlY());
-                                iBR3.setScaleX((float) 1);
-                                iBR3.setScaleY((float) 1);
-                                if (lifePoints > 0) {
-                                    target3ScalingInitiative.start();
-                                } else {
-                                    iBR1.setX(5000);
-                                    iBR1.setY(5000);
-                                    iBR2.setX(5000);
-                                    iBR2.setY(5000);
-                                    iBR3.setX(5000);
-                                    iBR3.setY(5000);
-                                    iBR4.setX(5000);
-                                    iBR4.setY(5000);
-                                    iBR5.setX(5000);
-                                    iBR5.setY(5000);
-                                    difficulty.cancel();
-                                    difficulty.onFinish();
                                 }
-                            }
-                        };
-                        ausblenden3.start();
+
+                                @Override
+                                public void onFinish() {
+                                    ButtonPlacement werteRandomen = new ButtonPlacement();
+                                    iBR3.setX(werteRandomen.getRandomZahlX());
+                                    iBR3.setY(werteRandomen.getRandomZahlY());
+                                    iBR3.setScaleX((float) 1);
+                                    iBR3.setScaleY((float) 1);
+                                    if (lifePoints > 0) {
+                                        target3ScalingInitiative.start();
+                                    } else {
+                                        iBR1.setX(5000);
+                                        iBR1.setY(5000);
+                                        iBR2.setX(5000);
+                                        iBR2.setY(5000);
+                                        iBR3.setX(5000);
+                                        iBR3.setY(5000);
+                                        iBR4.setX(5000);
+                                        iBR4.setY(5000);
+                                        iBR5.setX(5000);
+                                        iBR5.setY(5000);
+                                        difficulty.cancel();
+                                        difficulty.onFinish();
+                                    }
+                                }
+                            };
+                            ausblenden3.start();
+                        }
+                    };
+                    if (target3FirstSpawn == true) {
+                        target3ScalingInitiative.start();
+                        target3FirstSpawn = false;
                     }
-                };
-                if (target3FirstSpawn == true) {
-                    target3ScalingInitiative.start();
-                    target3FirstSpawn = false;
                 }
             }
         }, (long) (44500));
@@ -445,72 +451,74 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     target4ScalingInitiative.start();
                 }
 
-                ButtonPlacement werteRandomen = new ButtonPlacement();
-                iBR4.setX(werteRandomen.getRandomZahlX());
-                iBR4.setY(werteRandomen.getRandomZahlY());
+                if (gameStillRunning) {
+                    ButtonPlacement werteRandomen = new ButtonPlacement();
+                    iBR4.setX(werteRandomen.getRandomZahlX());
+                    iBR4.setY(werteRandomen.getRandomZahlY());
 
-                target4ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
+                    target4ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
+                        ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                        ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                        ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                        ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                        ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        iScalerTarget4 = iScalerTarget4 + scalingAmount;
-                        iBR4.setScaleX(iScalerTarget4);
-                        iBR4.setScaleY(iScalerTarget4);
-                        scalingTarget4Started = true;
-                    }
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            iScalerTarget4 = iScalerTarget4 + scalingAmount;
+                            iBR4.setScaleX(iScalerTarget4);
+                            iBR4.setScaleY(iScalerTarget4);
+                            scalingTarget4Started = true;
+                        }
 
-                    @Override
-                    public void onFinish() {
-                        lifePoints = lifePoints - 1;
-                        uebergabeLifepoints = String.valueOf(lifePoints);
-                        currentLifepoints.setText(uebergabeLifepoints);
-                        iScalerTarget4 = 1;
+                        @Override
+                        public void onFinish() {
+                            lifePoints = lifePoints - 1;
+                            uebergabeLifepoints = String.valueOf(lifePoints);
+                            currentLifepoints.setText(uebergabeLifepoints);
+                            iScalerTarget4 = 1;
 
-                        iBR4.setX(5000F);
-                        iBR4.setY(5000F);
+                            iBR4.setX(5000F);
+                            iBR4.setY(5000F);
 
-                        ausblenden4 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
+                            ausblenden4 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
 
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                ButtonPlacement werteRandomen = new ButtonPlacement();
-                                iBR4.setX(werteRandomen.getRandomZahlX());
-                                iBR4.setY(werteRandomen.getRandomZahlY());
-                                iBR4.setScaleX((float) 1);
-                                iBR4.setScaleY((float) 1);
-                                if (lifePoints > 0) {
-                                    target4ScalingInitiative.start();
-                                } else {
-                                    iBR1.setX(5000);
-                                    iBR1.setY(5000);
-                                    iBR2.setX(5000);
-                                    iBR2.setY(5000);
-                                    iBR3.setX(5000);
-                                    iBR3.setY(5000);
-                                    iBR4.setX(5000);
-                                    iBR4.setY(5000);
-                                    iBR5.setX(5000);
-                                    iBR5.setY(5000);
-                                    difficulty.cancel();
-                                    difficulty.onFinish();
                                 }
-                            }
-                        };
-                        ausblenden4.start();
+
+                                @Override
+                                public void onFinish() {
+                                    ButtonPlacement werteRandomen = new ButtonPlacement();
+                                    iBR4.setX(werteRandomen.getRandomZahlX());
+                                    iBR4.setY(werteRandomen.getRandomZahlY());
+                                    iBR4.setScaleX((float) 1);
+                                    iBR4.setScaleY((float) 1);
+                                    if (lifePoints > 0) {
+                                        target4ScalingInitiative.start();
+                                    } else {
+                                        iBR1.setX(5000);
+                                        iBR1.setY(5000);
+                                        iBR2.setX(5000);
+                                        iBR2.setY(5000);
+                                        iBR3.setX(5000);
+                                        iBR3.setY(5000);
+                                        iBR4.setX(5000);
+                                        iBR4.setY(5000);
+                                        iBR5.setX(5000);
+                                        iBR5.setY(5000);
+                                        difficulty.cancel();
+                                        difficulty.onFinish();
+                                    }
+                                }
+                            };
+                            ausblenden4.start();
+                        }
+                    };
+                    if (target4FirstSpawn == true) {
+                        target4ScalingInitiative.start();
+                        target4FirstSpawn = false;
                     }
-                };
-                if (target4FirstSpawn == true) {
-                    target4ScalingInitiative.start();
-                    target4FirstSpawn = false;
                 }
             }
         }, (long) (64500));
@@ -524,73 +532,74 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     target5ScalingInitiative.start();
                 }
 
+                if (gameStillRunning) {
+                    ButtonPlacement werteRandomen = new ButtonPlacement();
+                    iBR5.setX(werteRandomen.getRandomZahlX());
+                    iBR5.setY(werteRandomen.getRandomZahlY());
 
-                ButtonPlacement werteRandomen = new ButtonPlacement();
-                iBR5.setX(werteRandomen.getRandomZahlX());
-                iBR5.setY(werteRandomen.getRandomZahlY());
+                    target5ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
+                        ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
+                        ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
+                        ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
+                        ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
+                        ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
 
-                target5ScalingInitiative = new CountDownTimer(scalingSpeed, scalingSteps) {
-                    ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);
-                    ImageButton iBR2 = (ImageButton) findViewById(R.id.imageButtonTarget2);
-                    ImageButton iBR3 = (ImageButton) findViewById(R.id.imageButtonTarget3);
-                    ImageButton iBR4 = (ImageButton) findViewById(R.id.imageButtonTarget4);
-                    ImageButton iBR5 = (ImageButton) findViewById(R.id.imageButtonTarget5);
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            iScalerTarget5 = iScalerTarget5 + scalingAmount;
+                            iBR5.setScaleX(iScalerTarget5);
+                            iBR5.setScaleY(iScalerTarget5);
+                            scalingTarget5Started = true;
+                        }
 
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        iScalerTarget5 = iScalerTarget5 + scalingAmount;
-                        iBR5.setScaleX(iScalerTarget5);
-                        iBR5.setScaleY(iScalerTarget5);
-                        scalingTarget5Started = true;
-                    }
+                        @Override
+                        public void onFinish() {
+                            lifePoints = lifePoints - 1;
+                            uebergabeLifepoints = String.valueOf(lifePoints);
+                            currentLifepoints.setText(uebergabeLifepoints);
+                            iScalerTarget5 = 1;
 
-                    @Override
-                    public void onFinish() {
-                        lifePoints = lifePoints - 1;
-                        uebergabeLifepoints = String.valueOf(lifePoints);
-                        currentLifepoints.setText(uebergabeLifepoints);
-                        iScalerTarget5 = 1;
+                            iBR5.setX(5000F);
+                            iBR5.setY(5000F);
 
-                        iBR5.setX(5000F);
-                        iBR5.setY(5000F);
+                            ausblenden5 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
 
-                        ausblenden5 = new CountDownTimer((long) (500 + (Math.random() * 1500)), 1500) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                ButtonPlacement werteRandomen = new ButtonPlacement();
-                                iBR5.setX(werteRandomen.getRandomZahlX());
-                                iBR5.setY(werteRandomen.getRandomZahlY());
-                                iBR5.setScaleX((float) 1);
-                                iBR5.setScaleY((float) 1);
-                                if (lifePoints > 0) {
-                                    target5ScalingInitiative.start();
-                                } else {
-                                    iBR1.setX(5000);
-                                    iBR1.setY(5000);
-                                    iBR2.setX(5000);
-                                    iBR2.setY(5000);
-                                    iBR3.setX(5000);
-                                    iBR3.setY(5000);
-                                    iBR4.setX(5000);
-                                    iBR4.setY(5000);
-                                    iBR5.setX(5000);
-                                    iBR5.setY(5000);
-                                    difficulty.cancel();
-                                    difficulty.onFinish();
                                 }
-                            }
-                        };
-                        ausblenden5.start();
+
+                                @Override
+                                public void onFinish() {
+                                    ButtonPlacement werteRandomen = new ButtonPlacement();
+                                    iBR5.setX(werteRandomen.getRandomZahlX());
+                                    iBR5.setY(werteRandomen.getRandomZahlY());
+                                    iBR5.setScaleX((float) 1);
+                                    iBR5.setScaleY((float) 1);
+                                    if (lifePoints > 0) {
+                                        target5ScalingInitiative.start();
+                                    } else {
+                                        iBR1.setX(5000);
+                                        iBR1.setY(5000);
+                                        iBR2.setX(5000);
+                                        iBR2.setY(5000);
+                                        iBR3.setX(5000);
+                                        iBR3.setY(5000);
+                                        iBR4.setX(5000);
+                                        iBR4.setY(5000);
+                                        iBR5.setX(5000);
+                                        iBR5.setY(5000);
+                                        difficulty.cancel();
+                                        difficulty.onFinish();
+                                    }
+                                }
+                            };
+                            ausblenden5.start();
+                        }
+                    };
+                    if (target5FirstSpawn == true) {
+                        target5ScalingInitiative.start();
+                        target5FirstSpawn = false;
                     }
-                };
-                if (target5FirstSpawn == true) {
-                    target5ScalingInitiative.start();
-                    target5FirstSpawn = false;
                 }
             }
         }, (long) (84500));
