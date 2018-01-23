@@ -15,6 +15,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by akra on 22.09.2017.
  */
@@ -158,7 +170,9 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onFinish() {                                                                //wird angezeigt wenn 24 Stunnden um oder alle Lebenspunkte verloren sind.
-                Toast.makeText(getApplicationContext(), "Punktzahl: " + currentScore, Toast.LENGTH_LONG).show();
+
+                sendScore();
+
             }
         };
 //################## Target 1 ######################################################################
@@ -755,5 +769,37 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     break;
 
             }
+    }
+
+    public void sendScore() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Constants.URL_SENDSCORE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("score", uebergabeScore);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
 }
