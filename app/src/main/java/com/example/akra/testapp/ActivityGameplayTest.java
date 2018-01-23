@@ -35,7 +35,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 {
 
     int amuValue = 15;                                                                              //Munitionsmenge die am Start des Spiels ohne Nachladen zur Verfügung steht
-    int lifePoints = 5;                                                                             //Lebenspunkte die dem Spieler zur Verfügung stehen.
+    int lifePoints = 1;                                                                             //Lebenspunkte die dem Spieler zur Verfügung stehen.
     String uebergabeMunition;                                                                       //Wird verwendet um den Int Wert der Munition die aktuell zur Verfügung steht der Anzeige zu übergeben
     String uebergabeLifepoints;                                                                     //Wird verwendet um den Int Wert der restelichen Lebenspunkte der Anzeige zu übergeben.
     String uebergabeScore;                                                                          //Wird verwendet um den long-Wert der aktuellen Punktzahl der Anzeige zu übergeben.
@@ -72,7 +72,8 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
     float iScalerTarget4 = 1F;
     float iScalerTarget5 = 1F;
     int schwierigStufe = 0;                                                                         //Schwierigkeitsstufe
-
+    int onlyOneHighscore = 0;
+    final String user = SharedPrefManager.getInstance(this).getUsername();
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -89,11 +90,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         ImageButton reloadButton = (ImageButton) findViewById(R.id.reloadButton);                   //Nachladebutton
         ImageButton backgroundButton = (ImageButton) findViewById(R.id.buttonBackground);           //Button der hinter den Zielscheiben liegt und der dafür sorgt das Munition abgezogen wird, wenn daneben gedrückt wird.
         ImageButton blockShots = (ImageButton) findViewById(R.id.buttonBlockShots);                 //wird wärend des Nachladens über die Zielscheiben gelegt und verhindert so, dass während des Nachladevorgangs geschossen werden kann.
-       // ImageButton buttonStartRound = (ImageButton) findViewById(R.id.imageButtonStartRound);    //wird nicht mehr verwendet. (Da das Spawnen neuer Scheiben von handlern geregelt wird und damit so oder so das Spiel beginnt.
+        final ImageButton scoreSenden = (ImageButton) findViewById(R.id.imageButtonScoreUebergeben);
+        // ImageButton buttonStartRound = (ImageButton) findViewById(R.id.imageButtonStartRound);    //wird nicht mehr verwendet. (Da das Spawnen neuer Scheiben von handlern geregelt wird und damit so oder so das Spiel beginnt.
 
         ImageView backgroundImage = (ImageView) findViewById(R.id.imageViewBackgroundPicture);      //Hintergrundbild
         ImageView levelBackground = (ImageView) findViewById(R.id.imageViewLevelBackground);        //Bild das Rahmen für die aktuelle Schwierigkeitsstufe darstellt.
         ImageView backgroundHeart = (ImageView) findViewById(R.id.imageViewHeart);                  //Bild das hinter dem Lebenspunktezähler liegt.
+        final ImageView bannerScore = (ImageView) findViewById(R.id.imageViewScoreBackground);
 
         final TextView currentLifepoints = (TextView) findViewById(R.id.lifePointsTV);              //Textanzeige für die Lebenspunkte
         TextView actualAmmunition = (TextView) findViewById(R.id.textActualAmmu);                   //Textanzeige für Munition
@@ -108,6 +111,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         reloadButton.setBackground(null);
         backgroundButton.setBackground(null);
         blockShots.setBackground(null);
+        scoreSenden.setBackground(null);
        // buttonStartRound.setBackground(null);
 
         btms2.setOnClickListener(this);                                                             //Clicklistener für alle Buttons
@@ -119,6 +123,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         backgroundButton.setOnClickListener(this);
         blockShots.setOnClickListener(this);
         reloadButton.setOnClickListener(this);
+        scoreSenden.setOnClickListener(this);
        // buttonStartRound.setOnClickListener(this);
 
         uebergabeMunition = String.valueOf(amuValue);                                               //uebergeben der eingestellten Munitionsmenge an den String
@@ -140,6 +145,9 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
         blockShots.setX(5000F);                                                                     //Schussblockierer vom Spielfeld weg setzen. Wird später für die Nachladedauer ins Spielfeldgesetzt und danach wieder auf diese Position gesetzt.
         blockShots.setY(5000F);
+
+        scoreSenden.setX(5000);
+        scoreSenden.setY(5000);
 
         //###################################### Handler section ###################################
         final Handler handler1 = new Handler();
@@ -170,9 +178,20 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onFinish() {                                                                //wird angezeigt wenn 24 Stunnden um oder alle Lebenspunkte verloren sind.
-
-                sendScore();
-
+                onlyOneHighscore++;
+                if(onlyOneHighscore < 2)
+                {
+                    bannerScore.setX(400);
+                    bannerScore.setY(703);
+                    bannerScore.setScaleX(4);
+                    bannerScore.setScaleY(4);
+                    currentScore.setX(420);
+                    currentScore.setY(700);
+                    currentScore.setScaleX(2.8f);
+                    currentScore.setScaleY(2.8f);
+                    scoreSenden.setX(-140);
+                    scoreSenden.setY(800);
+                }
             }
         };
 //################## Target 1 ######################################################################
@@ -768,38 +787,40 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     gunClip.start();                                                                //Ton wird abgespielt wenn während des Nachladens versucht wird zu schießen.
                     break;
 
-            }
-    }
+                case R.id.imageButtonScoreUebergeben:
+                    uebergabeScore = String.valueOf(score);
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                            Constants.URL_SENDSCORE,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response);
 
-    public void sendScore() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL_SENDSCORE,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
+                                        Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("score", uebergabeScore);
+                            params.put("accountIDFS", user);
+                            return params;
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("score", uebergabeScore);
-                return params;
+                    };
+                    RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+                    break;
             }
-        };
-        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
+
 }

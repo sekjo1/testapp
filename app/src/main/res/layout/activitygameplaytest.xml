@@ -23,14 +23,30 @@
         android:layout_height="38dp"
         app:srcCompat="@mipmap/banner_1"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleX="1.1"
-        android:scaleY="1.1"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
         android:layout_marginTop="1dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.501" />
+
+    <ImageView
+        android:id="@+id/imageViewScoreBackground"
+        android:layout_width="89dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="36dp"
+        android:scaleX="1.8"
+        android:scaleY="1.8"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/banner_2" />
+
 
     <ImageView
         android:id="@+id/imageViewHeart"
@@ -195,14 +211,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="39dp"
-        android:text="Punktzahl: 0"
-        android:textColor="@android:color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="41dp"
+        android:text="Punktzahl: 0"
+        android:textColor="@android:color/black"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.469" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewStufe"
@@ -210,14 +226,23 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="7dp"
         android:text="Stufe: 1"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageViewLevelBackground" />
 
+    <ImageButton
+        android:id="@+id/imageButtonScoreUebergeben"
+        android:layout_width="500dp"
+        android:layout_height="150dp"
+        android:scaleX="0.6"
+        android:scaleY="0.5"
+        app:srcCompat="@mipmap/banner_button"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="233dp" />
 
 
 </android.support.constraint.ConstraintLayout>

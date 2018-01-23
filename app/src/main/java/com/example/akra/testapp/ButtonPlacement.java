@@ -8,6 +8,7 @@ public class ButtonPlacement
     private double decidePlusMinus = Math.random();
     private double randomValueX = Math.random();
     private double randomValueY = Math.random();
+    private int endScore;
 
 
     public float getRandomZahlX()
@@ -77,5 +78,14 @@ public class ButtonPlacement
                 }
             }
         }
+    }
+
+    public int getEndScore()
+    {
+        return endScore;
+    }
+
+    public void setEndScore(int endScore) {
+        this.endScore = endScore;
     }
 }
