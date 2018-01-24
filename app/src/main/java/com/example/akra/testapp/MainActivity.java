@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Intent startTest;
     Intent startUpgrade;
     Intent startLoginScreen;
+    Intent startHighscore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startTest = new Intent(MainActivity.this, ActivityStartGame.class);
         startGame = new Intent(MainActivity.this, ActivityGameplayTest.class);
         startUpgrade = new Intent (MainActivity.this, UpgradeInterfaceActivity.class);
+        startHighscore = new Intent (MainActivity.this, HighscoreActivity.class);
 
         loggedInUser.setText(SharedPrefManager.getInstance(this).getUsername());
 
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;*/
 
             case R.id.imageHighscoreButton:
+                startActivity(startHighscore);
                 break;
 
             case R.id.imageLeaveButton:

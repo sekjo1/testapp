@@ -18,6 +18,8 @@ public class SharedPrefManager
     private static final String KEY_SURNAME = "surname";
     private static final String KEY_GIVENNAME = "givenname";
     private static final String KEY_USERNAME = "username";
+    private static final String KEY_SCORE_ID = "scoreID";
+    private static final String KEY_ACCOUNTNAMEHIGHSCORE = "accountNameHighscore";
     private static final String KEY_SCORE = "score";
 
 
@@ -73,9 +75,21 @@ public class SharedPrefManager
         return sharedPreferences.getString(KEY_USERNAME, null);
     }
 
+    public boolean highscoreToSharedPrefMan(int scoreID, String accountNameHighscore, String score)
+    {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt(KEY_SCORE_ID, scoreID);
+        editor.putString(KEY_ACCOUNTNAMEHIGHSCORE, accountNameHighscore);
+        editor.putString(KEY_SCORE, score);
+        editor.apply();
+        return true;
+    }
+
     public String getHighscore()
     {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(KEY_USERNAME, null);
+        return sharedPreferences.getString(KEY_SCORE, null);
     }
 }

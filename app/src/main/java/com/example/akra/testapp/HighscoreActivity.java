@@ -1,12 +1,8 @@
 package com.example.akra.testapp;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +24,70 @@ import java.util.Map;
 
 public class HighscoreActivity extends AppCompatActivity
 {
+    private TextView highscoreTextview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_highscore);
 
-        TextView highscoreTextview = (TextView)findViewById(R.id.erhaltenerHighscore);
-        final String highscore = SharedPrefManager.getInstance(this).getHighscore();
+        highscoreTextview = (TextView)findViewById(R.id.erhaltenerHighscore);
+    }
+
+    private void getHighscoreWhatever()
+    {
+        final String accountNameHighscore = SharedPrefManager.getInstance(this).getUsername();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_GETSCORE, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                try
+                {
+                    JSONObject obj = new JSONObject(response);
+                    if(!obj.getBoolean("error"))
+                    {
+                        SharedPrefManager.getInstance(getApplicationContext()).highscoreToSharedPrefMan(obj.getInt("scoreID"), obj.getString("accountNameHighscore"), obj.getString("score"));
+                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "error kommt vom response zurück du hund", Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("accountNameHighscore", accountNameHighscore);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    public void getHighscore2(View view)
+    {
+        getHighscoreWhatever();
+        highscoreTextview.setText(SharedPrefManager.getInstance(this).getHighscore());
+        //Toast.makeText(getApplicationContext(), "funktionier doch du scheisse", Toast.LENGTH_SHORT).show();
     }
 }

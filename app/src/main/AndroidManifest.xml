@@ -30,6 +30,9 @@
             android:label="Shoot It!">
         </activity>
         <activity android:name=".RegisterActivity"
+        android:label="Shoot It!">
+        </activity>
+        <activity android:name=".HighscoreActivity"
             android:label="Shoot It!">
         </activity>
     </application>
