@@ -27,24 +27,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageButton startButton = (ImageButton)findViewById(R.id.imageStartButton);
         ImageButton highscoreButton = (ImageButton)findViewById(R.id.imageHighscoreButton);
         ImageButton endButton = (ImageButton)findViewById(R.id.imageLeaveButton);
-        ImageButton upgradeButton = (ImageButton) findViewById(R.id.imageUpgradesButton);
+        //ImageButton upgradeButton = (ImageButton) findViewById(R.id.imageUpgradesButton);
 
 
         TextView startButtonText = (TextView) findViewById(R.id.textviewStarten);
         TextView highscoreButtonText = (TextView)findViewById(R.id.textviewHighscore);
         TextView endButtonText = (TextView)findViewById(R.id.textviewEnde);
-        TextView upgradeButtonText = (TextView) findViewById(R.id.textviewUpgradeInterface);
+        //TextView upgradeButtonText = (TextView) findViewById(R.id.textviewUpgradeInterface);
         TextView loggedInUser = (TextView) findViewById(R.id.textViewUsername);
 
         startButton.setBackground(null);
         highscoreButton.setBackground(null);
         endButton.setBackground(null);
-        upgradeButton.setBackground(null);
+        //upgradeButton.setBackground(null);
 
         startButton.setOnClickListener(this);
         highscoreButton.setOnClickListener(this);
         endButton.setOnClickListener(this);
-        upgradeButton.setOnClickListener(this);
+        //upgradeButton.setOnClickListener(this);
 
         startTest = new Intent(MainActivity.this, ActivityStartGame.class);
         startGame = new Intent(MainActivity.this, ActivityGameplayTest.class);
@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(startGame);
                 break;
 
-            case R.id.imageUpgradesButton:
+            /*case R.id.imageUpgradesButton:
                 startActivity(startUpgrade);
-                break;
+                break;*/
 
             case R.id.imageHighscoreButton:
                 break;

@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity
 
         edTeLoUsername = (EditText) findViewById(R.id.editTextLoginUsername);
         edTeLoPassword = (EditText) findViewById(R.id.editTextLoginPassword);
-        textViewLoginHinweis = (TextView) findViewById(R.id.textViewHinweis);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Bitte warten...");

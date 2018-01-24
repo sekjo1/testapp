@@ -823,7 +823,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> params = new HashMap<>();
                             params.put("score", uebergabeScore);
-                            params.put("accountIDFS", user);
+                            params.put("accountNameHighscore", user);
                             return params;
                         }
                     };
