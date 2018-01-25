@@ -17,19 +17,18 @@
 
     <ImageView
         android:id="@+id/imageViewPergament"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="370dp"
         android:layout_marginBottom="150dp"
         android:layout_marginEnd="150dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="200dp"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
+        android:layout_marginTop="50dp"
+        android:scaleX="1.0"
+        android:scaleY="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.491"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
         app:srcCompat="@mipmap/pergament" />
 
     <ImageView
@@ -45,7 +44,6 @@
         android:id="@+id/textViewLogin"
         android:layout_width="63dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
@@ -53,11 +51,9 @@
         android:text="Login"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLoginPassword"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginPassword" />
 
     <EditText
         android:id="@+id/editTextLoginPassword"
@@ -79,30 +75,29 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imageViewPergament" />
 
     <TextView
         android:id="@+id/textViewRegisterButton"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:onClick="lRegister"
         android:text="Registrieren?"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPergament"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLogin"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
 
 
 </android.support.constraint.ConstraintLayout>

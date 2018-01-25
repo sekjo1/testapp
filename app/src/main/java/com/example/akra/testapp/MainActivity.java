@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,46 +66,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         loggedInUser.setText(SharedPrefManager.getInstance(this).getUsername());
 
+        getHighscoreCurrentPlayer();
+        getHighscoreOverall();
+
     }
+//######################################################Highscore des aktuellen Spielers holen######################################################
 
 
-
-
-    @Override
-    public void onClick(View v)
-    {
-        //Toast.makeText(this, "Sie haben einene Button geklickt", Toast.LENGTH_LONG).show();
-        switch (v.getId())
-        {
-
-            case R.id.imageStartButton:
-                startActivity(startGame);
-                break;
-
-            /*case R.id.imageUpgradesButton:
-                startActivity(startUpgrade);
-                break;*/
-
-            case R.id.imageHighscoreButton:
-                getHighscoreWhatever();
-                startActivity(startHighscore);
-                break;
-
-            case R.id.imageLeaveButton:
-                finishAffinity();
-                break;
-        }
-    }
-
-    public void userLogout(View view){
-
-        SharedPrefManager.getInstance(this).logout();
-        startLoginScreen = new Intent(MainActivity.this, LoginActivity.class);
-        finishAffinity();
-        startActivity(startLoginScreen);
-    }
-
-    private void getHighscoreWhatever()
+    private void getHighscoreCurrentPlayer()
     {
         final String accountNameHighscore = SharedPrefManager.getInstance(this).getUsername();
 
@@ -125,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (JSONException e)
@@ -139,8 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(), "error kommt vom response zurück du hund", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 })
         {
@@ -154,6 +120,91 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+//#########################################################Besten Highscore holen####################################################################
+
+    private void getHighscoreOverall()
+    {
+        final String zeroString = "0";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_GETOVERALLHIGHSCORE, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                try
+                {
+                    JSONObject obj = new JSONObject(response);
+                    if(!obj.getBoolean("error"))
+                    {
+                        SharedPrefManager.getInstance(getApplicationContext()).overallHighscoreToSharedPrefMan(obj.getString("accountNameHighscore2"), obj.getString("score2"));
+                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        //Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("score", zeroString);
+                return params;
+            }
+
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+
+
+    @Override
+    public void onClick(View v)
+    {
+
+        switch (v.getId())
+        {
+
+            case R.id.imageStartButton:
+                startActivity(startGame);
+                break;
+
+            case R.id.imageHighscoreButton:
+                getHighscoreCurrentPlayer();
+                startActivity(startHighscore);
+                break;
+
+            case R.id.imageLeaveButton:
+                finishAffinity();
+                break;
+        }
+    }
+
+    public void userLogout(View view){
+
+        SharedPrefManager.getInstance(this).logout();
+        startLoginScreen = new Intent(MainActivity.this, LoginActivity.class);
+        finishAffinity();
+        startActivity(startLoginScreen);
+    }
+
+
 
 
 }

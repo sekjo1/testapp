@@ -26,6 +26,8 @@ import java.util.Map;
 public class HighscoreActivity extends AppCompatActivity
 {
     private TextView highscoreTextview;
+    private TextView overallHighscoreTextview;
+    private TextView besterSpieler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,11 +38,20 @@ public class HighscoreActivity extends AppCompatActivity
         final Handler handler = new Handler();
 
         highscoreTextview = (TextView)findViewById(R.id.erhaltenerHighscore);
+        overallHighscoreTextview = (TextView)findViewById(R.id.hoechsterHighscore);
+        besterSpieler = (TextView)findViewById(R.id.textViewBesterSpieler);
 
         highscoreTextview.setText(SharedPrefManager.getInstance(this).getHighscore());
+        overallHighscoreTextview.setText(SharedPrefManager.getInstance(this).getOverallHighscore());
+        besterSpieler.setText(SharedPrefManager.getInstance(this).getOverallHCName());
 
 
     }
+
+
+
+
+
 
     /*private void getHighscoreWhatever()
     {

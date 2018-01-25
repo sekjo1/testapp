@@ -17,19 +17,18 @@
 
     <ImageView
         android:id="@+id/imageViewPergament"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="370dp"
         android:layout_marginBottom="150dp"
         android:layout_marginEnd="150dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="200dp"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
+        android:layout_marginTop="50dp"
+        android:scaleX="1.0"
+        android:scaleY="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.491"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
         app:srcCompat="@mipmap/pergament" />
 
     <ImageView
@@ -41,25 +40,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo_banner_ingame" />
 
-
-    <ImageButton
-        android:id="@+id/imageButtonRegister"
-        android:layout_width="335dp"
-        android:layout_height="145dp"
-        android:layout_marginBottom="50dp"
+    <TextView
+        android:id="@+id/textViewRegister"
+        android:layout_width="138dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:onClick="rRegister"
-        android:scaleType="fitXY"
-        android:scaleX="0.5"
-        android:scaleY="0.4"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Registrieren"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPergament"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterPassword"
-        app:srcCompat="@mipmap/button_hintergrund_basic" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegisterPassword" />
 
 
     <EditText
@@ -83,14 +79,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+        app:layout_constraintTop_toTopOf="@+id/imageViewPergament" />
 
     <EditText
         android:id="@+id/editTextRegisterGivenname"

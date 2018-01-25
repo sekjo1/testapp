@@ -234,25 +234,96 @@
         app:layout_constraintTop_toTopOf="@+id/imageViewLevelBackground" />
 
     <ImageButton
-        android:id="@+id/imageButtonScoreUebergeben"
+        android:id="@+id/imageButtonNeustart"
         android:layout_width="500dp"
-        android:layout_height="150dp"
+        android:layout_height="145dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
         android:scaleX="0.6"
         android:scaleY="0.5"
-        app:srcCompat="@mipmap/banner_button"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="233dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewScoreBackgroundEndscreen"
+        app:layout_constraintVertical_bias="0.226"
+        app:srcCompat="@mipmap/banner_button" />
+
+    <TextView
+        android:id="@+id/textViewNeustart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="5dp"
+        android:text="Neustarten"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonScoreUebergeben"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonScoreUebergeben" />
+
+    <ImageButton
+        android:id="@+id/imageButtonScoreUebergeben"
+        android:layout_width="500dp"
+        android:layout_height="145dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:scaleX="0.6"
+        android:scaleY="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewScoreBackgroundEndscreen"
+        app:layout_constraintVertical_bias="0.226"
+        app:srcCompat="@mipmap/banner_button" />
 
     <TextView
         android:id="@+id/textViewSendScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score übermitteln?"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="5dp"
+        android:text="Score senden"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="286dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonScoreUebergeben"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonScoreUebergeben" />
+
+    <ImageView
+        android:id="@+id/imageViewScoreBackgroundEndscreen"
+        android:layout_width="89dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="180dp"
+        android:scaleX="4"
+        android:scaleY="4"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/banner_2" />
+
+    <TextView
+        android:id="@+id/scoreTVEndscreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:scaleX="2.8"
+        android:scaleY="2.8"
+        android:text="Score: 0"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewScoreBackgroundEndscreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewScoreBackgroundEndscreen" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

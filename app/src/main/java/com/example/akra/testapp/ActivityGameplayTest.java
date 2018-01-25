@@ -1,5 +1,6 @@
 package com.example.akra.testapp;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,12 +77,15 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
     int schwierigStufe = 0;                                                                         //Schwierigkeitsstufe
     int onlyOneHighscore = 0;
     final String user = SharedPrefManager.getInstance(this).getUsername();
+    Intent restartGame;
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitygameplaytest);
+
+        restartGame = new Intent(ActivityGameplayTest.this, ActivityGameplayTest.class);
                                                                                                     //Buttons initialisieren
         Button btms2 = (Button) findViewById(R.id.buttonBackToMainScreen2);                         //Zurück button
         ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);                     //Zielscheiben
@@ -92,18 +97,22 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         ImageButton backgroundButton = (ImageButton) findViewById(R.id.buttonBackground);           //Button der hinter den Zielscheiben liegt und der dafür sorgt das Munition abgezogen wird, wenn daneben gedrückt wird.
         ImageButton blockShots = (ImageButton) findViewById(R.id.buttonBlockShots);                 //wird wärend des Nachladens über die Zielscheiben gelegt und verhindert so, dass während des Nachladevorgangs geschossen werden kann.
         final ImageButton scoreSenden = (ImageButton) findViewById(R.id.imageButtonScoreUebergeben);
+        final ImageButton neustart = (ImageButton)findViewById(R.id.imageButtonNeustart);
         // ImageButton buttonStartRound = (ImageButton) findViewById(R.id.imageButtonStartRound);    //wird nicht mehr verwendet. (Da das Spawnen neuer Scheiben von handlern geregelt wird und damit so oder so das Spiel beginnt.
 
         ImageView backgroundImage = (ImageView) findViewById(R.id.imageViewBackgroundPicture);      //Hintergrundbild
         ImageView levelBackground = (ImageView) findViewById(R.id.imageViewLevelBackground);        //Bild das Rahmen für die aktuelle Schwierigkeitsstufe darstellt.
         ImageView backgroundHeart = (ImageView) findViewById(R.id.imageViewHeart);                  //Bild das hinter dem Lebenspunktezähler liegt.
         final ImageView bannerScore = (ImageView) findViewById(R.id.imageViewScoreBackground);
+        final ImageView bannerEndScore = (ImageView) findViewById(R.id.imageViewScoreBackgroundEndscreen);
 
         final TextView currentLifepoints = (TextView) findViewById(R.id.lifePointsTV);              //Textanzeige für die Lebenspunkte
         TextView actualAmmunition = (TextView) findViewById(R.id.textActualAmmu);                   //Textanzeige für Munition
         final TextView currentScore = (TextView) findViewById(R.id.scoreTV);                        //Textanzeige für aktuelle Punktzahl
         final TextView currentLevel = (TextView) findViewById(R.id.textViewStufe);                  //Textanzeige für aktuelle Schwierigkeitsstufe
         final TextView sendScoreTextView = (TextView) findViewById((R.id.textViewSendScore));
+        final TextView neustartTextView = (TextView) findViewById(R.id.textViewNeustart);
+        final TextView endscoreTextView = (TextView) findViewById(R.id.scoreTVEndscreen);
 
         iBR1.setBackground(null);                                                                   //entfernen des grauen Hintergrunds der Zielscheiben-Imagebuttons und aller anderen buttons
         iBR2.setBackground(null);
@@ -114,6 +123,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         backgroundButton.setBackground(null);
         blockShots.setBackground(null);
         scoreSenden.setBackground(null);
+        neustart.setBackground(null);
        // buttonStartRound.setBackground(null);
 
         btms2.setOnClickListener(this);                                                             //Clicklistener für alle Buttons
@@ -126,6 +136,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         blockShots.setOnClickListener(this);
         reloadButton.setOnClickListener(this);
         scoreSenden.setOnClickListener(this);
+        neustart.setOnClickListener(this);
        // buttonStartRound.setOnClickListener(this);
 
         uebergabeMunition = String.valueOf(amuValue);                                               //uebergeben der eingestellten Munitionsmenge an den String
@@ -148,10 +159,16 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         blockShots.setX(5000F);                                                                     //Schussblockierer vom Spielfeld weg setzen. Wird später für die Nachladedauer ins Spielfeldgesetzt und danach wieder auf diese Position gesetzt.
         blockShots.setY(5000F);
 
-        scoreSenden.setX(5000);
-        scoreSenden.setY(5000);
-        sendScoreTextView.setX(5000);
-        sendScoreTextView.setY(5000);
+        bannerEndScore.setVisibility(View.GONE);
+        endscoreTextView.setVisibility(View.GONE);
+        neustart.setVisibility(View.GONE);
+        neustart.setEnabled(false);
+        neustartTextView.setVisibility(View.GONE);
+        neustartTextView.setEnabled(false);
+        scoreSenden.setVisibility(View.GONE);
+        scoreSenden.setEnabled(false);
+        sendScoreTextView.setVisibility(View.GONE);
+        sendScoreTextView.setEnabled(false);
 
         //###################################### Handler section ###################################
         final Handler handler1 = new Handler();
@@ -185,18 +202,30 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 onlyOneHighscore++;
                 if(onlyOneHighscore < 2)
                 {
-                    bannerScore.setX(400);
-                    bannerScore.setY(703);
-                    bannerScore.setScaleX(4);
-                    bannerScore.setScaleY(4);
-                    currentScore.setX(420);
-                    currentScore.setY(700);
-                    currentScore.setScaleX(2.8f);
-                    currentScore.setScaleY(2.8f);
-                    scoreSenden.setX(-140);
-                    scoreSenden.setY(800);
-                    sendScoreTextView.setX(290);
-                    sendScoreTextView.setY(937);
+                    bannerScore.setX(5000);
+                    bannerScore.setY(5000);
+                    currentScore.setX(5000);
+                    currentScore.setY(5000);
+
+                    if(score >0)
+                    {
+                        endscoreTextView.setText("Score: " + uebergabeScore);
+                    }
+                    else
+                    {
+                        endscoreTextView.setText("Score: 0");
+                    }
+                    bannerEndScore.setVisibility(View.VISIBLE);
+                    endscoreTextView.setVisibility(View.VISIBLE);
+
+                    neustart.setVisibility(View.VISIBLE);
+                    neustart.setEnabled(true);
+                    neustartTextView.setVisibility(View.VISIBLE);
+                    neustartTextView.setEnabled(true);
+                    scoreSenden.setVisibility(View.VISIBLE);
+                    scoreSenden.setEnabled(true);
+                    sendScoreTextView.setVisibility(View.VISIBLE);
+                    sendScoreTextView.setEnabled(true);
                     gameStillRunning = false;
                 }
             }
@@ -815,10 +844,12 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                                         Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                         final ImageButton scoreSenden = (ImageButton) findViewById(R.id.imageButtonScoreUebergeben);
                                         final TextView sendScoreTextView = (TextView) findViewById((R.id.textViewSendScore));
+                                        scoreSenden.setEnabled(false);
                                         scoreSenden.setX(5000);
                                         scoreSenden.setY(5000);
+                                        sendScoreTextView.setEnabled(false);
                                         sendScoreTextView.setX(5000);
-                                        sendScoreTextView.setY(5000);
+                                        sendScoreTextView.setX(5000);
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -842,6 +873,12 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     };
                     RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
                     break;
+
+            case R.id.imageButtonNeustart:
+                finish();
+                startActivity(restartGame);
+                break;
+
             }
     }
 

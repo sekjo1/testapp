@@ -21,6 +21,8 @@ public class SharedPrefManager
     private static final String KEY_SCORE_ID = "scoreID";
     private static final String KEY_ACCOUNTNAMEHIGHSCORE = "accountNameHighscore";
     private static final String KEY_SCORE = "score";
+    private static final String KEY_OVERALL_HIGHSCORE = "score2";
+    private static final String KEY_ACCNAMEOVERALLHC = "accountNameHighscore2";
 
 
     private SharedPrefManager(Context context)
@@ -91,5 +93,29 @@ public class SharedPrefManager
     {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_SCORE, null);
+    }
+
+
+    public boolean overallHighscoreToSharedPrefMan(String accountNameHighscore2, String score2)
+    {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(KEY_ACCNAMEOVERALLHC, accountNameHighscore2);
+        editor.putString(KEY_OVERALL_HIGHSCORE, score2);
+        editor.apply();
+        return true;
+    }
+
+    public String getOverallHighscore()
+    {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_OVERALL_HIGHSCORE, null);
+    }
+
+    public String getOverallHCName()
+    {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_ACCNAMEOVERALLHC, null);
     }
 }
