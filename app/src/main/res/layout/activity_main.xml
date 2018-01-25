@@ -11,6 +11,7 @@
         android:id="@+id/imageViewSky"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scaleX="1.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/background_sky" />
@@ -18,42 +19,39 @@
     <ImageView
         android:id="@+id/imageViewLogo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="109dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo_banner_ingame" />
 
 
-
-
-
     <ImageButton
         android:id="@+id/imageStartButton"
         android:layout_width="500dp"
-        android:layout_height="150dp"
+        android:layout_height="145dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="280dp"
         android:scaleX="0.6"
         android:scaleY="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/imageHighscoreButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageViewSky"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
         app:srcCompat="@mipmap/banner_button" />
 
     <ImageButton
         android:id="@+id/imageHighscoreButton"
         android:layout_width="500dp"
-        android:layout_height="150dp"
+        android:layout_height="145dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="384dp"
         android:scaleX="0.6"
         android:scaleY="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/imageLeaveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageViewSky"
+        app:layout_constraintTop_toBottomOf="@+id/imageStartButton"
         app:srcCompat="@mipmap/banner_button" />
 
     <!--<ImageButton
@@ -73,15 +71,15 @@
     <ImageButton
         android:id="@+id/imageLeaveButton"
         android:layout_width="500dp"
-        android:layout_height="150dp"
+        android:layout_height="145dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="492dp"
         android:scaleX="0.6"
         android:scaleY="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/textViewUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageViewSky"
+        app:layout_constraintTop_toBottomOf="@+id/imageHighscoreButton"
         app:srcCompat="@mipmap/banner_button" />
 
     <TextView

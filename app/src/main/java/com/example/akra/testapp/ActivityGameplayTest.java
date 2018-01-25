@@ -103,6 +103,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         TextView actualAmmunition = (TextView) findViewById(R.id.textActualAmmu);                   //Textanzeige für Munition
         final TextView currentScore = (TextView) findViewById(R.id.scoreTV);                        //Textanzeige für aktuelle Punktzahl
         final TextView currentLevel = (TextView) findViewById(R.id.textViewStufe);                  //Textanzeige für aktuelle Schwierigkeitsstufe
+        final TextView sendScoreTextView = (TextView) findViewById((R.id.textViewSendScore));
 
         iBR1.setBackground(null);                                                                   //entfernen des grauen Hintergrunds der Zielscheiben-Imagebuttons und aller anderen buttons
         iBR2.setBackground(null);
@@ -149,6 +150,8 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
         scoreSenden.setX(5000);
         scoreSenden.setY(5000);
+        sendScoreTextView.setX(5000);
+        sendScoreTextView.setY(5000);
 
         //###################################### Handler section ###################################
         final Handler handler1 = new Handler();
@@ -192,6 +195,8 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     currentScore.setScaleY(2.8f);
                     scoreSenden.setX(-140);
                     scoreSenden.setY(800);
+                    sendScoreTextView.setX(290);
+                    sendScoreTextView.setY(937);
                     gameStillRunning = false;
                 }
             }
@@ -642,7 +647,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
                         score = Math.round((long) (score + scoreGain));                             //errechnen des neuen Punktestands
                         uebergabeScore = String.valueOf(score);
-                        currentScore.setText("Punktzahl: " + uebergabeScore);
+                        currentScore.setText("Score: " + uebergabeScore);
                         gunShot.start();                                                            //Waffenton wird ausgegeben
                         break;
                     }
@@ -665,7 +670,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
-                        currentScore.setText("Punktzahl: " + uebergabeScore);
+                        currentScore.setText("Score: " + uebergabeScore);
                         gunShot.start();
                         break;
                     }
@@ -688,7 +693,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
-                        currentScore.setText("Punktzahl: " + uebergabeScore);
+                        currentScore.setText("Score: " + uebergabeScore);
                         gunShot.start();
                         break;
                     }
@@ -711,7 +716,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
-                        currentScore.setText("Punktzahl: " + uebergabeScore);
+                        currentScore.setText("Score: " + uebergabeScore);
                         gunShot.start();
                         break;
                     }
@@ -734,7 +739,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
-                        currentScore.setText("Punktzahl: " + uebergabeScore);
+                        currentScore.setText("Score: " + uebergabeScore);
                         gunShot.start();
                         break;
                     }
@@ -798,6 +803,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 
                 case R.id.imageButtonScoreUebergeben:
                     uebergabeScore = String.valueOf(score);
+
                     StringRequest stringRequest = new StringRequest(Request.Method.POST,
                             Constants.URL_SENDSCORE,
                             new Response.Listener<String>() {
@@ -807,9 +813,16 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                                         JSONObject jsonObject = new JSONObject(response);
 
                                         Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                        final ImageButton scoreSenden = (ImageButton) findViewById(R.id.imageButtonScoreUebergeben);
+                                        final TextView sendScoreTextView = (TextView) findViewById((R.id.textViewSendScore));
+                                        scoreSenden.setX(5000);
+                                        scoreSenden.setY(5000);
+                                        sendScoreTextView.setX(5000);
+                                        sendScoreTextView.setY(5000);
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Nicht so hastig", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             },

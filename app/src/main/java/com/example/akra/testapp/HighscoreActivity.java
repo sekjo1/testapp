@@ -1,6 +1,7 @@
 package com.example.akra.testapp;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -32,10 +33,16 @@ public class HighscoreActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highscore);
 
+        final Handler handler = new Handler();
+
         highscoreTextview = (TextView)findViewById(R.id.erhaltenerHighscore);
+
+        highscoreTextview.setText(SharedPrefManager.getInstance(this).getHighscore());
+
+
     }
 
-    private void getHighscoreWhatever()
+    /*private void getHighscoreWhatever()
     {
         final String accountNameHighscore = SharedPrefManager.getInstance(this).getUsername();
 
@@ -89,5 +96,5 @@ public class HighscoreActivity extends AppCompatActivity
         getHighscoreWhatever();
         highscoreTextview.setText(SharedPrefManager.getInstance(this).getHighscore());
         //Toast.makeText(getApplicationContext(), "funktionier doch du scheisse", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }
