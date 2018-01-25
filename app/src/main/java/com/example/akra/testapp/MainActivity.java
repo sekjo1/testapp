@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView label;
     Intent startGame;
-    Intent startTest;
-    Intent startUpgrade;
     Intent startLoginScreen;
     Intent startHighscore;
 
@@ -35,33 +33,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toast.makeText(this, "8===>", Toast.LENGTH_LONG).show();
 
         ImageButton startButton = (ImageButton)findViewById(R.id.imageStartButton);
         ImageButton highscoreButton = (ImageButton)findViewById(R.id.imageHighscoreButton);
         ImageButton endButton = (ImageButton)findViewById(R.id.imageLeaveButton);
-        //ImageButton upgradeButton = (ImageButton) findViewById(R.id.imageUpgradesButton);
 
 
         TextView startButtonText = (TextView) findViewById(R.id.textviewStarten);
         TextView highscoreButtonText = (TextView)findViewById(R.id.textviewHighscore);
         TextView endButtonText = (TextView)findViewById(R.id.textviewEnde);
-        //TextView upgradeButtonText = (TextView) findViewById(R.id.textviewUpgradeInterface);
         TextView loggedInUser = (TextView) findViewById(R.id.textViewUsername);
 
         startButton.setBackground(null);
         highscoreButton.setBackground(null);
         endButton.setBackground(null);
-        //upgradeButton.setBackground(null);
 
         startButton.setOnClickListener(this);
         highscoreButton.setOnClickListener(this);
         endButton.setOnClickListener(this);
-        //upgradeButton.setOnClickListener(this);
 
-        startTest = new Intent(MainActivity.this, ActivityStartGame.class);
-        startGame = new Intent(MainActivity.this, ActivityGameplayTest.class);
-        startUpgrade = new Intent (MainActivity.this, UpgradeInterfaceActivity.class);
+        startGame = new Intent(MainActivity.this, ActivityGameplay.class);
         startHighscore = new Intent (MainActivity.this, HighscoreActivity.class);
 
         loggedInUser.setText(SharedPrefManager.getInstance(this).getUsername());
@@ -88,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(!obj.getBoolean("error"))
                     {
                         SharedPrefManager.getInstance(getApplicationContext()).highscoreToSharedPrefMan(obj.getInt("scoreID"), obj.getString("accountNameHighscore"), obj.getString("score"));
-                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
@@ -138,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(!obj.getBoolean("error"))
                     {
                         SharedPrefManager.getInstance(getApplicationContext()).overallHighscoreToSharedPrefMan(obj.getString("accountNameHighscore2"), obj.getString("score2"));
-                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
@@ -156,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 })
         {
@@ -187,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.imageHighscoreButton:
                 getHighscoreCurrentPlayer();
+                getHighscoreOverall();
                 startActivity(startHighscore);
                 break;
 
@@ -203,8 +195,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         finishAffinity();
         startActivity(startLoginScreen);
     }
-
-
-
-
 }

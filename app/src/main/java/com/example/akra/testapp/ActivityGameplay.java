@@ -1,7 +1,6 @@
 package com.example.akra.testapp;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -24,7 +23,6 @@ import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +31,7 @@ import java.util.Map;
  * Created by akra on 22.09.2017.
  */
 
-public class ActivityGameplayTest extends AppCompatActivity implements View.OnClickListener
+public class ActivityGameplay extends AppCompatActivity implements View.OnClickListener
 {
 
     int amuValue = 15;                                                                              //Munitionsmenge die am Start des Spiels ohne Nachladen zur Verfügung steht
@@ -85,7 +83,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitygameplaytest);
 
-        restartGame = new Intent(ActivityGameplayTest.this, ActivityGameplayTest.class);
+        restartGame = new Intent(ActivityGameplay.this, ActivityGameplay.class);
                                                                                                     //Buttons initialisieren
         Button btms2 = (Button) findViewById(R.id.buttonBackToMainScreen2);                         //Zurück button
         ImageButton iBR1 = (ImageButton) findViewById(R.id.imageButtonTarget1);                     //Zielscheiben
@@ -810,7 +808,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                 case R.id.buttonBlockShots:                                                         //Schüsse während nachladen blockieren
                     break;
 
-                case R.id.imageButtonScoreUebergeben:
+                case R.id.imageButtonScoreUebergeben:                                               //Die erreichte Punktzahl wird übergeben. Wenn der Eintrag geklappt hat wird der Button entfernt und ein Neustartbutton angezeigt
                     uebergabeScore = String.valueOf(score);
 
                     StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -854,7 +852,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                     RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
                     break;
 
-            case R.id.imageButtonNeustart:
+            case R.id.imageButtonNeustart:                                                          //wird nach dem erfolgreichen hochladen des erzielten Scores angezeigt. Startet die Activity neu
                 finish();
                 startActivity(restartGame);
                 break;

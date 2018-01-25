@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity
         final String username = edTeLoUsername.getText().toString().trim();
         final String password = edTeLoPassword.getText().toString().trim();
 
-        if (TextUtils.isEmpty(username))
+        if (TextUtils.isEmpty(username))                                                            //Überprüfen ob alle nötigen Felder die zum Login benötigt werden ausgefüllt wurden.
         {
             edTeLoUsername.setError("Nutzernamen eingeben!");
         }
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity
                     progressDialog.dismiss();
                     try
                     {
-                        JSONObject obj = new JSONObject(response);
+                        JSONObject obj = new JSONObject(response);                                  //Im folgenden wird der Rückgegebene Wert aus der Datenbank an den SharedPrefManager übergeben.
                         if(!obj.getBoolean("error"))
                         {
                             SharedPrefManager.getInstance(getApplicationContext()).userLogin(obj.getInt("accountID"), obj.getString("surname"), obj.getString("givenname"), obj.getString("username"));
@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity
                     })
             {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError
+                protected Map<String, String> getParams() throws AuthFailureError                   //Diese Werte werden an dás PHP-Script geschickt, das dann die SQL-Abfrage bearbeitet
                 {
                     Map<String, String> params = new HashMap<>();
                     params.put("username", username);
