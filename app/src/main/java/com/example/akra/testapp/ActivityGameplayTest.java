@@ -37,7 +37,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
 {
 
     int amuValue = 15;                                                                              //Munitionsmenge die am Start des Spiels ohne Nachladen zur Verfügung steht
-    int lifePoints = 1;                                                                             //Lebenspunkte die dem Spieler zur Verfügung stehen.
+    int lifePoints = 5;                                                                             //Lebenspunkte die dem Spieler zur Verfügung stehen.
     String uebergabeMunition;                                                                       //Wird verwendet um den Int Wert der Munition die aktuell zur Verfügung steht der Anzeige zu übergeben
     String uebergabeLifepoints;                                                                     //Wird verwendet um den Int Wert der restelichen Lebenspunkte der Anzeige zu übergeben.
     String uebergabeScore;                                                                          //Wird verwendet um den long-Wert der aktuellen Punktzahl der Anzeige zu übergeben.
@@ -780,7 +780,7 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                             TextView actualAmmunition = (TextView) findViewById(R.id.textActualAmmu);
                             ProgressBar reloadBar = (ProgressBar)findViewById(R.id.progressBarReload);
 
-                            amuValue = 20;                                                          //Munitionswert neu setzen.
+                            amuValue = 15;                                                          //Munitionswert neu setzen.
                             uebergabeMunition = String.valueOf(amuValue);
                             actualAmmunition.setText(uebergabeMunition);
                             reloadBar.setProgress(0);                                               //Nachlade-Progressbar wieder zurücksetzen
