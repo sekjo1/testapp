@@ -650,13 +650,6 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
         TextView actualAmmunition = (TextView) findViewById(R.id.textActualAmmu);
         TextView currentScore = (TextView) findViewById(R.id.scoreTV);
 
-        //######################################## Sound section ###################################
-        MediaPlayer gunClip = MediaPlayer.create(getApplicationContext(), R.raw.gun_clip);
-        MediaPlayer gunEmpty = MediaPlayer.create(getApplicationContext(), R.raw.gun_empty);
-        MediaPlayer gunShot = MediaPlayer.create(getApplicationContext(), R.raw.gun_shot2);
-        //##########################################################################################
-
-
         switch (v.getId()) {
                 case R.id.buttonBackToMainScreen2:                                                  //zurück Button
                     finish();
@@ -677,11 +670,9 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));                             //errechnen des neuen Punktestands
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Score: " + uebergabeScore);
-                        gunShot.start();                                                            //Waffenton wird ausgegeben
                         break;
                     }
                     else{
-                        gunEmpty.start();                                                           //bei zu wenig Munition wird ein Ton abgespielt.
                         break;
                     }
 
@@ -700,11 +691,9 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Score: " + uebergabeScore);
-                        gunShot.start();
                         break;
                     }
                     else{
-                        gunEmpty.start();
                         break;
                     }
 
@@ -723,11 +712,9 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Score: " + uebergabeScore);
-                        gunShot.start();
                         break;
                     }
                     else{
-                        gunEmpty.start();
                         break;
                     }
 
@@ -746,11 +733,9 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Score: " + uebergabeScore);
-                        gunShot.start();
                         break;
                     }
                     else{
-                        gunEmpty.start();
                         break;
                     }
 
@@ -769,11 +754,9 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         score = Math.round((long) (score + scoreGain));
                         uebergabeScore = String.valueOf(score);
                         currentScore.setText("Score: " + uebergabeScore);
-                        gunShot.start();
                         break;
                     }
                     else{
-                        gunEmpty.start();
                         break;
                     }
 
@@ -818,16 +801,13 @@ public class ActivityGameplayTest extends AppCompatActivity implements View.OnCl
                         amuValue = amuValue - 1;                                                    //Munition wird abgezogen.
                         uebergabeMunition = String.valueOf(amuValue);
                         actualAmmunition.setText(uebergabeMunition);
-                        gunShot.start();                                                            //Schusston wird abgespielt.
                         break;
                     }
                     else{
-                        gunEmpty.start();                                                           //Wenn keine Munition vorhanden ist wird ein Ton abgespielt.
                         break;
                     }
 
                 case R.id.buttonBlockShots:                                                         //Schüsse während nachladen blockieren
-                    gunClip.start();                                                                //Ton wird abgespielt wenn während des Nachladens versucht wird zu schießen.
                     break;
 
                 case R.id.imageButtonScoreUebergeben:
